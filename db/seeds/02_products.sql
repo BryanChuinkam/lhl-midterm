@@ -82,8 +82,8 @@ promotion) VALUES (
   2,
   ' Asus Chromebook',
   ' Asus Chromebook description',
-' https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&w=1600,
-''laptops',
+' https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&w=1600',
+'laptops',
   900,
   8,
   FALSE
@@ -136,8 +136,8 @@ promotion) VALUES (
   1,
   'Razer Blade',
   'Razer Blade description',
-' https://images.pexels.com/photos/12266706/pexels-photo-12266706.jpeg?auto=compress&cs=tinysrgb&w=1600,
-''laptops',
+' https://images.pexels.com/photos/12266706/pexels-photo-12266706.jpeg?auto=compress&cs=tinysrgb&w=1600',
+'laptops',
   600,
   14,
   true
@@ -192,8 +192,7 @@ promotion) VALUES (
   1,
   'Samsung Galaxy S21 Ultra',
 ' The Samsung Galaxy S21 Ultra is a feature-packed smartphone designed for tech enthusiasts. It boasts a large 6.8-inch Dynamic AMOLED display, a powerful Exynos 2100 processor, and an impressive quad-camera setup with 108MP main sensor. With its S Pen support, 5G capabilities, and massive battery, it delivers a premium mobile experience.',
-'https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&w=1600
-',
+'https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&w=1600',
 'mobiles',
   640,
   13,
@@ -210,10 +209,8 @@ stock,
 promotion) VALUES (
   2,
   'Google Pixel 5',
-' The Google Pixel 5 is a flagship device that excels in photography and software experience. It features a 6.0-inch OLED display, a Snapdragon 765G processor, and a dual-camera system with advanced computational photography capabilities. With its clean Android interface, long-lasting battery life, and access to Googles AI-powered services, it offers a seamless user experience.
-',
-'https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg?auto=compress&cs=tinysrgb&w=1600
-',
+' The Google Pixel 5 is a flagship device that excels in photography and software experience. It features a 6.0-inch OLED display, a Snapdragon 765G processor, and a dual-camera system with advanced computational photography capabilities. With its clean Android interface, long-lasting battery life, and access to Googles AI-powered services, it offers a seamless user experience.',
+'https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg?auto=compress&cs=tinysrgb&w=1600',
 'mobiles',
   400,
   12,
