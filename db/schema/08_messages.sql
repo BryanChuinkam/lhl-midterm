@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS messages CASCADE;
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  message TEXT,
+  thread_id INTEGER REFERENCES threads(id) ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
