@@ -4,6 +4,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-image: url("file://///wsl.localhost/LHL/home/labber/lhl-midterm/public/images/sitebackground.jpg");
+  background-size: cover;
 
   background: rgb(163, 208, 219);
   background: linear-gradient(
@@ -16,3 +18,4 @@ body {
     rgba(163, 208, 219, 1) 100%
   );
 }
+
