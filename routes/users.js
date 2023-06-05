@@ -4,12 +4,26 @@
  *   these routes are mounted onto /users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('users');
-}); 
+// Handle GET request for the registration page
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
+// Handle POST request for the registration form submission
+router.post('/register', (req, res) => {
+  const { email, password, city, province, phone } = req.body;
+  console.log('Submitted form data:');
+  console.log('Email:', email);
+  console.log('Password:', password);
+  console.log('City:', city);
+  console.log('Province:', province);
+  console.log('Phone Number:', phone);
+
+  // Redirect or render a success page if needed
+});
 
 module.exports = router;
+
