@@ -1,13 +1,15 @@
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
   display: flex;
   padding: 0 1.5em;
   height: 120px;
-  width: 100%;
-  position: fixed;
-  color: #FFFFFF;
-  background-color: #4545b5;
+  background-color: #5f45b5;
+  color: #ffffff;
   justify-content: space-between;
-  top: 0;
 }
 
 .logo {
