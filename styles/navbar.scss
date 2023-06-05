@@ -1,0 +1,31 @@
+nav {
+  display: flex;
+  padding: 0 1.5em;
+  height: 120px;
+  width: 100%;
+  position: fixed;
+  color: #FFFFFF;
+  background-color: #4545b5;
+  justify-content: space-between;
+  top: 0;
+}
+
+.logo {
+  display: flex;
+  font-size: 50px;
+  align-items: center;
+  margin-left: 0.25em;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 0.66em;
+}
+
+.logo-text {
+  display: flex;
+  font-size: 20px;
+}
