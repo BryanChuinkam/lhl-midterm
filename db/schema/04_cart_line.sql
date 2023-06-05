@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS cart_line_items CASCADE;
+CREATE TABLE cart_line_items (
+  id SERIAL PRIMARY KEY NOT NULL,
+  product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+  cart_id INTEGER REFERENCES carts(id) ON DELETE CASCADE,
+  quntity INTEGER  NOT NULL DEFAULT 0
+);
