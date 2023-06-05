@@ -12,6 +12,11 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
+// Handle GET request for the users page
+router.get('/', (req, res) => {
+  res.render('users');
+});
+
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
   const { email, password, city, province, phone } = req.body;
@@ -26,4 +31,3 @@ router.post('/register', (req, res) => {
 });
 
 module.exports = router;
-
