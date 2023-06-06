@@ -14,16 +14,10 @@ const pool = new Pool({
 // Define the route handler for /api/itemsSellerApi
 router.get('/', async (req, res) => {
   try {
-    // Acquire a client from the pool
     const client = await pool.connect();
-
-    // Execute a query to fetch items
     const queryResult = await client.query('SELECT * FROM items');
 
-    // Release the client back to the pool
     client.release();
-
-    // Send the query result as the response
     res.json(queryResult.rows);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching items' });

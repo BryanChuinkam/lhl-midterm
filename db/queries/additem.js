@@ -8,7 +8,7 @@ const addItemDatabase = (product,seller_id) => {
   product.price,
   product.stock);
   return db.query(
-    'INSERT INTO products (seller_id, name, description, product_image, category_name, price, stock, promotion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+    'INSERT INTO products (seller_id, name, description, thumbnail_photo_url, category_name, price, stock, promotion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
     [
       seller_id,
       product.name,

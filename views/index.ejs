@@ -1,61 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8" />
+  <title>Registration Page</title>
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script src="/scripts/pullproducts.js"></script>
-  <link rel="stylesheet" href="styles/index.css" />
-
-  <title>Form</title>
 </head>
-
 <body>
-  <% include('navbar.ejs') %>
-  <section>
-    <form id="post-item-form" class="login-form">
+  <div class="navbar">
+    <%- include('navbar.ejs') %>
+  </div>
 
-      <div>
-        <input id="additem" type="submit" value="submit">
-      </div>
-    </form>
-  </section>
-  <section id="items">
-
-  </section>
-
-  <button id="fetch-items">Fetch Items</button>
+  <section id="items"></section>
 
   <script>
-    $(() => {
-      $('#fetch-items').on('click', () => {
+    $(document).ready(() => {
+      // Fetch items when the page loads
+      fetchItems();
+
+      function fetchItems() {
         $.ajax({
           method: 'GET',
-          url: '/api/itemsSellerApi'
-        })
-        .done((response) => {
-          const $itemsList = $('#items');
-          $itemsList.empty();
+          url: '/api/itemsSellerApi',
+          success: (response) => {
+            const $itemsList = $('#items');
+            $itemsList.empty();
 
-          for(const item of response) {
-            console.log(item);
+            for (const item of response) {
+              console.log(item);
 
-            let $item = $(`<div class="product">
-              <img src="https://example.com/product-image.jpg" alt="no image">
-              <h3>Product Name: ${item.name}</h3>
-              <p>Price: ${item.price}</p>
-              <p>Stock: ${item.stock}</p>
-              <p>Description: ${item.description}</p>
-            </div>`);
-            $itemsList.prepend($item);
+              let $item = $(`
+                <div class="product">
+                  <img src="${item.thumbnail_photo_url}" alt="no image">
+                  <h3>Product Name: ${item.name}</h3>
+                  <p>Price: ${item.price}</p>
+                  <p>Stock: ${item.stock}</p>
+                  <p>Description: ${item.description}</p>
+                </div>
+              `);
+              $itemsList.append($item);
+            }
+          },
+          error: (xhr, status, error) => {
+            console.error('Error fetching items:', error);
           }
         });
-      });
+      }
     });
   </script>
 </body>
-
 </html>
+
+
 
 
 
