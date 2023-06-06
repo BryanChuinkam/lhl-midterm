@@ -1,12 +1,12 @@
 const express = require('express');
 const router  = express.Router();
-const SellerQueries = require('../db/queries/ItemsSeller');
+const sellerQueries = require('../db/queries/itemsSeller');
 
 router.get('/', (req, res) => {
-  SellerQueries.getProductsBySellerId()
+  sellerQueries.getProductsBySellerId(1)//change the value to req.session.user_id
     .then((items )=> {
-      // console.log(items.rows);
-      res.json({ items });
+      // console.log(items);
+      res.json(items);
     })
     .catch(err => {
       res

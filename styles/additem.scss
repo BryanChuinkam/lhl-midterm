@@ -1,60 +1,4 @@
-// body {
-//   font-family: Arial, sans-serif;
-//   background-color: #f2f2f2;
-// }
 
-// // Form styles
-// form {
-//   max-width: 400px;
-//   margin: 0 auto;
-//   padding: 20px;
-//   background-color: #fff;
-//   border-radius: 5px;
-//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-// }
-
-// form div {
-//   margin-bottom: 15px;
-// }
-
-// form label {
-//   font-weight: bold;
-// }
-
-// form input[type="text"],
-// form textarea,
-// form select {
-//   width: 100%;
-//   padding: 8px;
-//   border: 1px solid #ccc;
-//   border-radius: 4px;
-//   box-sizing: border-box;
-// }
-
-// form input[type="number"] {
-//   width: 100%;
-//   padding: 8px;
-//   border: 1px solid #ccc;
-//   border-radius: 4px;
-//   box-sizing: border-box;
-// }
-
-// form input[type="checkbox"] {
-//   margin-top: 5px;
-// }
-
-// form input[type="submit"] {
-//   background-color: #007bff;
-//   color: #fff;
-//   border: none;
-//   padding: 10px 20px;
-//   border-radius: 4px;
-//   cursor: pointer;
-// }
-
-// form input[type="submit"]:hover {
-//   background-color: #0056b3;
-// }
 .search-property-form,
 .login-form,
 .new-property-form,
@@ -82,4 +26,17 @@
     width: 100%;
   }
 }
+//for the list of items to appear after I add an item
+#items{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+.product{
 
+border: 1px solid #070000;
+padding: 10px;
+width: 70%;
+margin-bottom: 2em;
+}

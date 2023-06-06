@@ -1,38 +1,63 @@
-// Client facing scripts here
+// // Client facing scripts here
 $(() => {
   $('#fetch-items').on('click', () => {
     $.ajax({
       method: 'GET',
       url: '/api/itemsSellerApi'
     })
-    .then((response) => {
-      const $itemList = $('#items');
-      $itemList.empty();
-      console.log(response);
-      for(const product of response) {
-        $(`<li class="items">`).text(product.name).appendTo($itemList);
+    .done((response) => {
+      const $itemsList = $('#items');
+      $itemsList.empty();
+
+      for(const item of response) {
+        console.log(item)
+
+  let $item = $(`<div class="product">
+  <img src="https://example.com/product-image.jpg" alt="no image">
+  <h3>Product Name: ${item.name}</h3>
+  <p>Price: ${item.price}</p>
+  <p>Stock: ${item.stock}</p>
+  <p>Description: ${item.description}</p>
+</div> `);
+  // $item.appendTo($itemsList);
+  $itemsList.prepend($item);
       }
     });
   });
 });
+ /* <div class="product-card">
+      <img src="https://example.com/product-image.jpg" alt="no image">
+      <h3>Product Name</h3>
+      <p>Price: $99</p>
+      <p>Stock: 10</p>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div> 
+     */
 
 
-// //untill here it works fine and adds to database
-//     //the rest is to display the listings under the form
-//     .then (()=>{
-//       $.ajax({
-//         method: 'GET',
-//       url: '/api/getSellerListings'
-//       }).then((items)=>{
-        
-//           // clearListings();
-//           for (const item in items) {
-//             const item 
+  //         let $item = $(`
+  // <article class="tweet">
+  // <header>
+  //   <div class="person">
+  //     <img src="${item.product_image}">
+      
+  //   </div>
+  //   <div>
+  //   <p>${item.name}</p>
+  //     <p>${item.price}</p>
+  //   </div>
+  // </header>
+  
+  // <div class="content">
+  //   <p>
+  //   ${item.description}
+  //   </p>
+  // </div>
+  
+  // <footer>
+  //   <div>${item.stock}</div>
+  //    </footer>
+  // </article>
+  // `);
 
-//             const listing = propertyListing.createList(property, isReservation);
-//             addListing(listing);
-//           }
 
-//       })
-//       })
-//     }
