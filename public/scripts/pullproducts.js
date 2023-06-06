@@ -3,7 +3,7 @@ $(() => {
   $('#fetch-items').on('click', () => {
     $.ajax({
       method: 'GET',
-      url: '/api/pullproducts'
+      url: '/api/itemsSellerApi'
     })
     .done((response) => {
       const $itemsList = $('#items');
@@ -21,7 +21,11 @@ $(() => {
         </div>`);
         $itemsList.prepend($item);
       }
+    })
+    .fail((xhr, status, error) => {
+      console.error('Error fetching items:', error);
     });
   });
 });
+
 

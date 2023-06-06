@@ -7,57 +7,54 @@
   <script src="/scripts/pullproducts.js"></script>
   <link rel="stylesheet" href="styles/index.css" />
 
-
   <title>Form</title>
 </head>
 
 <body>
-  <%- include('navbar.ejs') %>
-<section>
-<form id="post-item-form" class="login-form" >
+  <% include('navbar.ejs') %>
+  <section>
+    <form id="post-item-form" class="login-form">
 
-  <div>
-    <label for="item-image">Item Image:</label>
-    <input type="text" id="item-image" name="product_image" >
+      <div>
+        <input id="additem" type="submit" value="submit">
+      </div>
+    </form>
+  </section>
+  <section id="items">
 
-  </div>
-  <div>
-    <label for="item-name">Name:</label>
-    <input type="text" id="item-name" name="name" required>
-  </div>
-  <div>
-    <label for="item-description">Description:</label>
-    <textarea id="item-description" name="description" required></textarea>
-  </div>
-  <div>
-    <label for="item-price">Price:</label>
-    <input type="number" id="item-price" name="price" required>
-  </div>
-  <div>
-    <label for="item-category">Category:</label>
-    <select id="item-category" name="category_name" required>
-      <option value="">Category</option>
-      <option value="Laptops">Laptops</option>
-      <option value="Mobiles">Mobiles</option>
-    </select>
-  </div>
-  <div>
-    <label for="item-quantity">QTY</label>
-    <input type="number" id="item-quantity" name="stock" required>
-  </div>
-  <div>
-    <label for="featured-item">Promotion:</label>
-    <input type="checkbox" id="featured-item" name="promotion">
-  </div>
-  <div>
-    <input id= "additem" type="submit" value="submit">
-  </div>
+  </section>
 
-</form>
-</section>
-<section id="items">
-    </section>
+  <button id="fetch-items">Fetch Items</button>
+
+  <script>
+    $(() => {
+      $('#fetch-items').on('click', () => {
+        $.ajax({
+          method: 'GET',
+          url: '/api/itemsSellerApi'
+        })
+        .done((response) => {
+          const $itemsList = $('#items');
+          $itemsList.empty();
+
+          for(const item of response) {
+            console.log(item);
+
+            let $item = $(`<div class="product">
+              <img src="https://example.com/product-image.jpg" alt="no image">
+              <h3>Product Name: ${item.name}</h3>
+              <p>Price: ${item.price}</p>
+              <p>Stock: ${item.stock}</p>
+              <p>Description: ${item.description}</p>
+            </div>`);
+            $itemsList.prepend($item);
+          }
+        });
+      });
+    });
+  </script>
 </body>
+
 </html>
 
 
