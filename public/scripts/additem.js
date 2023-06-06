@@ -1,5 +1,4 @@
 // Client facing scripts here
-//currently not used
 $(() => {
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();

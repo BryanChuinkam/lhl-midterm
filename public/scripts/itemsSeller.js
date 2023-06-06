@@ -15,3 +15,24 @@ $(() => {
     });
   });
 });
+
+
+// //untill here it works fine and adds to database
+//     //the rest is to display the listings under the form
+//     .then (()=>{
+//       $.ajax({
+//         method: 'GET',
+//       url: '/api/getSellerListings'
+//       }).then((items)=>{
+        
+//           // clearListings();
+//           for (const item in items) {
+//             const item 
+
+//             const listing = propertyListing.createList(property, isReservation);
+//             addListing(listing);
+//           }
+
+//       })
+//       })
+//     }

@@ -5,7 +5,8 @@ const itemQueries = require('../db/queries/additem');
 
 router.post('/', function(req, res) {
   console.log("reached route");
-  let userID = req.session.user_id;
+  let userID = 1;// change this to session_ID later
+  // let userID = req.session.user_id;
   if (!req.body) {
     res.status(400).json({ error: 'invalid request: no data in POST body'});
     return;
