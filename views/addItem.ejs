@@ -4,18 +4,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="stylesheet" href="file://///wsl.localhost/LHL/home/labber/lhl-midterm/public/styles/main.css" />
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <link rel="stylesheet" href="styles/additem.css" />
+  <script defer src="/scripts/additem.js"></script>
   <title>Form</title>
 </head>
 
 <body>
   <%-include('navbar') %>
 
-<form id="post-item-form" action="/api/additem" method="POST">
+<form id="post-item-form" class="login-form" >
   
   <div>
     <label for="item-image">Item Image:</label>
-    <input type="file" id="item-image" name="product_image">
+    <input type="text" id="item-image" name="product_image" >
+
   </div>
   <div>
     <label for="item-name">Name:</label>
@@ -46,7 +49,7 @@
     <input type="checkbox" id="featured-item" name="promotion">
   </div>
   <div>
-    <input type="submit" value="submit">
+    <input id= "additem" type="submit" value="submit">
   </div>
 
 </form>
