@@ -10,6 +10,11 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
+const additemRoutes = require('./routes/additem');
+const additemApiRoutes = require('./routes/additem-api');
+const itemsSeller = require('./routes/itemsSeller');
+const itemsSellerApi = require('./routes/itemsSellerApi');
+
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -30,6 +35,10 @@ app.use(
   })
 );
 app.use(express.static(__dirname + '/public'));
+app.use('/addItem', additemRoutes);
+app.use('/api/additem', additemApiRoutes);
+app.use('/itemsSeller', itemsSeller);
+app.use('/api/itemsSellerApi', itemsSellerApi);
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
@@ -57,6 +66,7 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/api/pullproducts', pullProductsApiRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 
