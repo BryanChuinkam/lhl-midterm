@@ -6,26 +6,32 @@ body {
 
 .container {
   margin-top: 120px;
-  padding: 20px;
 }
 
 .product {
-  border: 1px solid #ccc;
-  padding: 20px;
+  border: .25em solid #1d1c1c55;
+  padding: 1.5em;
   text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.product:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.616);
 }
 
 .product img {
   width: 15.0em;
   height: 15.0em;
   object-fit: cover;
-  border: 0.2em solid #5f45b5;
+  border: 0.2em solid #1d1c1c55;
 }
 
 #items {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 4.0em;
+  grid-gap: 9.0em;
+  margin-left: 4.0em;
+  margin-right: 4.0em;
 }
 
 p {
