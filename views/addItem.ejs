@@ -7,11 +7,14 @@
   <script src="/vendor/jquery-3.0.0.js"></script>
   <link rel="stylesheet" href="styles/additem.css" />
   <script defer src="/scripts/additem.js"></script>
+  <link rel="stylesheet" href="/styles/navbar.css">
   <title>Form</title>
 </head>
 
 <body>
-  <%-include('navbar') %>
+  <header>
+    <%- include('navbar.ejs') %>
+  </header>
 <section>
 <form id="post-item-form" class="login-form" >
   

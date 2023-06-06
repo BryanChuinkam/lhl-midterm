@@ -17,7 +17,7 @@ const addItemDatabase = (product,seller_id) => {
       product.category_name,
       product.price,
       product.stock,
-      true
+      product.promotion|| false
     ])
     
     // .then(data => {
