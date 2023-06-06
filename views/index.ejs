@@ -2,23 +2,61 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
-
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
-
+  <meta charset="utf-8" />
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/pullproducts.js"></script>
+  <link rel="stylesheet" href="styles/index.css" />
+
+
+  <title>Form</title>
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+  <%- include('navbar.ejs') %>
+<section>
+<form id="post-item-form" class="login-form" >
+
+  <div>
+    <label for="item-image">Item Image:</label>
+    <input type="text" id="item-image" name="product_image" >
+
+  </div>
+  <div>
+    <label for="item-name">Name:</label>
+    <input type="text" id="item-name" name="name" required>
+  </div>
+  <div>
+    <label for="item-description">Description:</label>
+    <textarea id="item-description" name="description" required></textarea>
+  </div>
+  <div>
+    <label for="item-price">Price:</label>
+    <input type="number" id="item-price" name="price" required>
+  </div>
+  <div>
+    <label for="item-category">Category:</label>
+    <select id="item-category" name="category_name" required>
+      <option value="">Category</option>
+      <option value="Laptops">Laptops</option>
+      <option value="Mobiles">Mobiles</option>
+    </select>
+  </div>
+  <div>
+    <label for="item-quantity">QTY</label>
+    <input type="number" id="item-quantity" name="stock" required>
+  </div>
+  <div>
+    <label for="featured-item">Promotion:</label>
+    <input type="checkbox" id="featured-item" name="promotion">
+  </div>
+  <div>
+    <input id= "additem" type="submit" value="submit">
+  </div>
+
+</form>
+</section>
+<section id="items">
+    </section>
 </body>
 </html>
 
