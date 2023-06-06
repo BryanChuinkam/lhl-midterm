@@ -3,7 +3,7 @@ $(() => {
   $('#fetch-items').on('click', () => {
     $.ajax({
       method: 'GET',
-      url: '/api/pullproducts' // Updated route path
+      url: '/api/pullproducts'
     })
     .done((response) => {
       const $itemsList = $('#items');
