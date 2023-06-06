@@ -3,7 +3,12 @@ $(() => {
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();
     console.log("ajax request");
-    const data = $('#post-item-form').serialize();
+    const data = $('#post-item-form').serialize({
+      checkboxesAsBools: true
+  });
+    // let data = $("#post-item-form").serializeArray();
+    // data["promotion"] = $('#featured-item').is(":checked");
+    // data = jQuery.param(data);
     $.ajax({
       method: 'POST',
       url: '/api/additem',
@@ -22,11 +27,12 @@ $(() => {
           console.log(item)
   
     let $item = $(`<div class="product">
-    <img src="https://example.com/product-image.jpg" alt="no image">
-    <h3>Product Name: ${item.name}</h3>
+    <img id="itemImage" src="${item.product_image}" alt="no image">
+    <h4>Product Name: ${item.name}</h4>
     <p>Price: ${item.price}</p>
     <p>Stock: ${item.stock}</p>
     <p>Description: ${item.description}</p>
+    <p>featured: ${item.promotion}</p>
   </div> `);
     // $item.appendTo($itemsList);
     $itemsList.prepend($item);
