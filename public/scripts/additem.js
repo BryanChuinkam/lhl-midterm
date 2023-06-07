@@ -38,7 +38,7 @@ function updateIsSold(button) {
 
 function populateItems(item) {
   let $item = $(`<div class="product">
-  <img id="itemImage" src="${item.product_image}" alt="no image">
+  <img id="itemImage" src="${item.thumbnail_photo_url}" alt="no image">
   <h4>Product Name: ${item.name}</h4>
   <p>Price: ${item.price}</p>
   <p>Stock: ${item.stock}</p>

@@ -4,7 +4,7 @@ CREATE TABLE products (
   seller_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
   description TEXT,
-  product_image VARCHAR(255) NOT NULL,
+  thumbnail_photo_url VARCHAR(255) NOT NULL,
   category_name VARCHAR(255) NOT NULL,
   price INTEGER  NOT NULL DEFAULT 0,
   stock INTEGER  NOT NULL DEFAULT 0,
