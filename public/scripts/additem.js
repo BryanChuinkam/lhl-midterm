@@ -1,34 +1,34 @@
 
 //delete an item from database
-function deleteProduct(button){
-  let d = $(button).data('product-id'); 
-  
+function deleteProduct(button) {
+  let d = $(button).data('product-id');
+
   $.ajax({
     method: 'DELETE',
     url: '/api/deleteItem',
-    data: {d},
-    
-    })
-    .then(()=>{grabItems();});
-  
+    data: { d },
+
+  })
+    .then(() => { grabItems(); });
+
   // return d;
 }
 
 //update an item thet is sold out 
 
-  function updateIsSold(button){
-    let d = $(button).data('product-id'); 
-    console.log(d);
-    $.ajax({
-      method: 'PUT',
-      url: '/api/updateItemSold',
-      data: {d},
-      
-      })
-      .then(()=>{grabItems();});
-    
-    // return d;
-  }
+function updateIsSold(button) {
+  let d = $(button).data('product-id');
+  console.log(d);
+  $.ajax({
+    method: 'PUT',
+    url: '/api/updateItemSold',
+    data: { d},
+
+  })
+    .then(() => { grabItems(); });
+
+  // return d;
+}
 
 
 
@@ -36,7 +36,7 @@ function deleteProduct(button){
 
 
 
-function populateItems(item){
+function populateItems(item) {
   let $item = $(`<div class="product">
   <img id="itemImage" src="${item.product_image}" alt="no image">
   <h4>Product Name: ${item.name}</h4>
@@ -52,33 +52,33 @@ function populateItems(item){
   <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
 
 `);
-return $item
+  return $item
 }
-function grabItems(){
+function grabItems() {
   return $.ajax({
     method: 'GET',
     url: '/api/itemsSellerApi'
   })
-  .done((response) => {
-    const $itemsList = $('#items');
-    $itemsList.empty();
+    .done((response) => {
+      const $itemsList = $('#items');
+      $itemsList.empty();
 
-    for(const item of response) {
-      console.log(item)
-// $item.appendTo($itemsList);
-$itemsList.prepend(populateItems(item));
-    }
-    $('#item-image, #item-name, #item-description, #item-price, #item-category, #item-quantity, #featured-item').val('');
-  });
+      for (const item of response) {
+        console.log(item)
+        // $item.appendTo($itemsList);
+        $itemsList.prepend(populateItems(item));
+      }
+      $('#item-image, #item-name, #item-description, #item-price, #item-category, #item-quantity, #featured-item').val('');
+    });
 }
 
 $(() => {
-//get all items in database for certain seller on page load
+  //get all items in database for certain seller on page load
   grabItems();
   $('#post-item-form').hide();
-  
 
-  $('#showAddForm').click(function() {
+
+  $('#showAddForm').click(function () {
     if ($('#post-item-form').is(':visible')) {
       $('#post-item-form').hide();
     } else {
@@ -89,29 +89,43 @@ $(() => {
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();
     console.log("ajax request");
-    const data = $('#post-item-form').serialize({
-      checkboxesAsBools: true
-  });
+
+
+
+    //   const data = $('#post-item-form').serialize({
+    //     checkboxesAsBools: true
+    // });
+    let data = $(event.target).serializeArray()
+      .filter(function (item) {
+        return item.name != "promotion";
+      })
+      .concat({
+        name: "promotion", value: $('input[name=promotion]').is(":checked")
+      });
+    data = jQuery.param(data);
+
+
+
     $.ajax({
       method: 'POST',
       url: '/api/additem',
       data: data
     })
-    .then(function () {
-     grabItems();
-    });
+      .then(function () {
+        grabItems();
+      });
   });
 
 
   //toggle the icons
-    $('#toggle-icon-on').on('click', function() {
-      toggleIcon.toggleClass('fa-toggle-off');
-    });
-  
+  $('#toggle-icon-on').on('click', function () {
+    toggleIcon.toggleClass('fa-toggle-off');
+  });
 
 
 
 
-    });
-  
+
+});
+
 
