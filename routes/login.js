@@ -8,28 +8,32 @@ router.get('/', (req, res) => {
   res.render('login');
 });
 
+console.log('testing logs');
 // Handle login form submission
-router.post('/login', (req, res) => {
+router.post('/users/login', (req, res) => {
   const { email, password } = req.body;
-
 
   db.getUserByEmailOrPhoneNumber(email, email)
     .then((user) => {
       if (user) {
-        return bcrypt.compare(password, user.password)
+        bcrypt.compare(password, user.password)
           .then((passwordMatch) => {
             if (passwordMatch) {
               res.redirect('/');
             } else {
               res.redirect('/login');
             }
+          })
+          .catch((error) => {
+            console.log('Error comparing passwords:', error);
+            res.redirect('/login');
           });
       } else {
         res.redirect('/login');
       }
     })
-    .catch((err) => {
-      console.error('Error retrieving user:', err);
+    .catch((error) => {
+      console.log('Error retrieving user:', error);
       res.redirect('/login');
     });
 });
