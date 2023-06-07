@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const db = require('../db/queries/users');
 
 // Handle GET request for the registration page
@@ -11,6 +12,43 @@ router.get('/register', (req, res) => {
 router.get('/', (req, res) => {
   res.render('users');
 });
+
+// Handle GET request for the login page
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
+console.log('testing logs');
+// Handle login form submission
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  db.getUserByEmailOrPhoneNumber(email, email)
+    .then((user) => {
+      if (!user) {
+        console.log('errrrrrrror2');
+        return res.redirect('/users/login');
+      }
+
+    console.log("+++++", password, user)
+    bcrypt.compare(password, user.password)
+      .then((passwordMatch) => {
+        if (!passwordMatch) {
+          return res.redirect('/users/login');
+        }
+          res.redirect('/');
+      })
+      .catch((err) => {
+        res.redirect('/users/login');
+      });
+
+    })
+    .catch((err) => {
+      console.log('Error retrieving user:', err);
+      res.redirect('/users/login');
+    });
+});
+
 
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {

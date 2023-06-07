@@ -7,7 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const loginRoutes = require('./routes/login');
+
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
@@ -41,6 +41,8 @@ app.use('/api/additem', additemApiRoutes);
 app.use('/itemsSeller', itemsSeller);
 app.use('/api/itemsSellerApi', itemsSellerApi);
 
+// const loginRoutes = require('./routes/login');
+
 // Separate Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
@@ -53,10 +55,13 @@ const productSearch = require('./routes/product_search');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+
+// app.use('/users/login', loginRoutes);
+
 app.use('/users', usersRoutes);
 app.use('/search', productSearch);
 app.use('/api/pullproducts', pullProductsApiRoutes);
-app.use('/users/login', loginRoutes);
+
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
