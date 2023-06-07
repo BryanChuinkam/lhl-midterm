@@ -1,21 +1,6 @@
-/*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into /users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
-
-// Create a pool instance
-const pool = new Pool({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  port: 5432,
-  database: 'midterm',
-});
+const db = require('../db/queries/users');
 
 // Handle GET request for the registration page
 router.get('/register', (req, res) => {
@@ -29,6 +14,7 @@ router.get('/', (req, res) => {
 
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
+  console.log('Reached the /users/register route handler');
   const { user_name, email, password, city, province, phone_number } = req.body;
   console.log('Submitted form data:');
   console.log('Name:', user_name);
@@ -38,20 +24,22 @@ router.post('/register', (req, res) => {
   console.log('Province:', province);
   console.log('Phone Number:', phone_number);
 
-  // Execute the database query
-  const queryString = 'INSERT INTO users (user_name, email, password, city, province, phone_number, contact_preference, user_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
-  const values = [user_name, email, password, city, province, phone_number, '-', 'regular']; // Replace 'regular' with the appropriate user type
-
-  pool.query(queryString, values)
-    .then(() => {
-      res.redirect('/')
+  db.getUserByEmailOrPhoneNumber(email, phone_number)
+    .then((existingUser) => {
+      if (existingUser) {
+        const errorMessage = 'Invalid credentials - This information has already been used.';
+        res.render('register', { errorMessage });
+      } else {
+        return db.createUser(user_name, email, password, city, province, phone_number)
+          .then(() => {
+            console.log('User created successfully');
+            res.redirect('/');
+          });
+      }
     })
-    .catch((error) => {
-      console.error('Error executing query:', error);
-      // Handle the error accordingly
+    .catch((err) => {
+      console.error('Error creating user:', err);
+      res.redirect('/users/register');
     });
 });
-
-
-
 module.exports = router;

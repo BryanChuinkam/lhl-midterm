@@ -7,6 +7,14 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const path = require('path');
+const mime = require('mime');
+const pullProductsApiRoutes = require('./routes/pullproducts-api');
+const additemRoutes = require('./routes/additem');
+const additemApiRoutes = require('./routes/additem-api');
+const itemsSeller = require('./routes/itemsSeller');
+const itemsSellerApi = require('./routes/itemsSellerApi');
+
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -27,7 +35,23 @@ app.use(
   })
 );
 app.use(express.static(__dirname + '/public'));
+app.use('/addItem', additemRoutes);
+app.use('/api/additem', additemApiRoutes);
+app.use('/itemsSeller', itemsSeller);
+app.use('/api/itemsSellerApi', itemsSellerApi);
 
+// Set MIME type for JavaScript files
+app.use('/public/scripts', (req, res, next) => {
+  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
+  const mimeType = mime.getType(filePath);
+
+  if (mimeType === 'text/javascript') {
+    res.setHeader('Content-Type', mimeType);
+    next();
+  } else {
+    res.status(404).send('Not Found');
+  }
+});
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -44,13 +68,14 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/search', productSearch);
+app.use('/api/pullproducts', pullProductsApiRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
 app.get('/', (req, res) => {
   res.render('index');
 });
