@@ -31,3 +31,19 @@ nav {
   display: flex;
   font-size: 20px;
 }
+
+/* Style the search box inside the navigation bar */
+.form-inline {
+  float: right;
+  padding-top: 30px;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+.btn{
+  margin-top: 5%;
+  height: 50%;
+  background-color: #05050a;
+  margin-left: 15%;
+}
