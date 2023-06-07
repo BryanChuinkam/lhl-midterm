@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%=categorySearch%></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- EXTERNAL CSS-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+
+
+  <!-- APP CSS-->
+  <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/search_results.css" type="text/css" />
+
+  <!-- EXTERNAL JS -->
+  <script src="/vendor/jquery-3.0.0.js"></script>
+
+  <!-- APP JS -->
+  <script defer src="/scripts/product_search.js"></script>
+
+</head>
+
+<body>
+  <header> <%- include('navbar.ejs') %></header>
+  <div id="contentContainer">
+    <div id="resultsHeadingContainer"></div>
+    <div id="resultsContent">
+      <div id="filterSection"></div>
+      <section id="searchResults"></section>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
