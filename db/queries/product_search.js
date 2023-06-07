@@ -51,7 +51,7 @@ const productsByPriceRange = (category_name, min_price, max_price) => {
   const queryString = `SELECT *
                        FROM products
                        WHERE category_name = $1
-                       AND price between $2 and $3 ;`;
+                       AND price >=$2 and price <=$3 ;`;
   const values = [category_name, min_price, max_price];
 
   return db.query(queryString, values)
