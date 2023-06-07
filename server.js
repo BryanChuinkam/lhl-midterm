@@ -7,6 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const loginRoutes = require('./routes/login');
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
@@ -15,11 +16,11 @@ const additemApiRoutes = require('./routes/additem-api');
 const itemsSeller = require('./routes/itemsSeller');
 const itemsSellerApi = require('./routes/itemsSellerApi');
 
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Replace 'views' with the path to your views directory
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -39,6 +40,7 @@ app.use('/addItem', additemRoutes);
 app.use('/api/additem', additemApiRoutes);
 app.use('/itemsSeller', itemsSeller);
 app.use('/api/itemsSellerApi', itemsSellerApi);
+app.use('/', loginRoutes);
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
