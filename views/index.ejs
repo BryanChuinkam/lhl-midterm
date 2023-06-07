@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <title>Home Page</title>
-
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
-
+  <title>Registration Page</title>
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
 </head>
-
 <body>
-  <h1>Have fun! 🥔</h1>
-</body>
+  <div class="navbar">
+    <%- include('navbar.ejs') %>
+  </div>
 
+  <section id="items"></section>
+
+  <script>
+$(document).ready(() => {
+
+  fetchItems();
+
+  function fetchItems() {
+    $.ajax({
+      method: 'GET',
+      url: '/api/itemsSellerApi',
+      success: (response) => {
+        const $itemsList = $('#items');
+        $itemsList.empty();
+
+        for (const item of response) {
+          if (item.promotion) {
+            let $item = $(`
+              <div class="product">
+                <img src="${item.thumbnail_photo_url}" alt="no image">
+                <h3>Product Name: ${item.name}</h3>
+                <p>Price: ${item.price}</p>
+                <p>Stock: ${item.stock}</p>
+                <p>Description: ${item.description}</p>
+              </div>
+            `);
+            $itemsList.append($item);
+          }
+        }
+      },
+      error: (xhr, status, error) => {
+        console.error('Error fetching items:', error);
+      }
+    });
+  }
+});
+  </script>
+</body>
 </html>
+
+
+
+
+
