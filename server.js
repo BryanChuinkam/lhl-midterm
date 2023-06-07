@@ -5,8 +5,6 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -41,6 +39,7 @@ const usersRoutes = require('./routes/users');
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
