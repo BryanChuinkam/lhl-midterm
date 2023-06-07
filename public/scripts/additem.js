@@ -1,5 +1,5 @@
-// Client facing scripts here
 
+//delete an item from database
 function deleteProduct(button){
   let d = $(button).data('product-id'); 
   
@@ -13,6 +13,29 @@ function deleteProduct(button){
   
   // return d;
 }
+
+//update an item thet is sold out 
+
+  function updateIsSold(button){
+    let d = $(button).data('product-id'); 
+    console.log(d);
+    $.ajax({
+      method: 'PUT',
+      url: '/api/updateItemSold',
+      data: {d},
+      
+      })
+      .then(()=>{grabItems();});
+    
+    // return d;
+  }
+
+
+
+
+
+
+
 function populateItems(item){
   let $item = $(`<div class="product">
   <img id="itemImage" src="${item.product_image}" alt="no image">
@@ -21,9 +44,14 @@ function populateItems(item){
   <p>Stock: ${item.stock}</p>
   <p>Description: ${item.description}</p>
   <p>featured: ${item.promotion}</p>
- 
+  <p>SOLD!: ${item.sold}</p>
   <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" text="delete">Delete</button>
-</div> `);
+  <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" text="isSold">SOLD</button>
+  
+  <i id="toggle-icon-on" class="fas fa-toggle-on" font-size: 24px style="color: red;font-size: 30px;"></i>
+  <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
+
+`);
 return $item
 }
 function grabItems(){
@@ -47,6 +75,16 @@ $itemsList.prepend(populateItems(item));
 $(() => {
 //get all items in database for certain seller on page load
   grabItems();
+  $('#post-item-form').hide();
+  
+
+  $('#showAddForm').click(function() {
+    if ($('#post-item-form').is(':visible')) {
+      $('#post-item-form').hide();
+    } else {
+      $('#post-item-form').show();
+    }
+  });
 
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();
@@ -65,10 +103,13 @@ $(() => {
   });
 
 
+  //toggle the icons
+    $('#toggle-icon-on').on('click', function() {
+      toggleIcon.toggleClass('fa-toggle-off');
+    });
+  
 
-//   $("button[name=deleteProduct]").click(() =>{
-//      deleteProduct(this);
-// });
+
 
 
     });

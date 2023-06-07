@@ -8,14 +8,23 @@
   <link rel="stylesheet" href="styles/additem.css" />
   <script defer src="/scripts/additem.js"></script>
   <link rel="stylesheet" href="/styles/navbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
   <title>Form</title>
 </head>
 
 <body>
+
   <header>
     <%- include('navbar.ejs') %>
   </header>
-<section>
+<main>
+  <section id="button">
+  <button id="showAddForm">Show/Hide Add Form</button>
+  </section>
+  <section>
 <form id="post-item-form" class="login-form" >
   
   <div>
@@ -64,5 +73,8 @@
 <section id="items">
   <!-- <p>help</p> -->
     </section>
-</body>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+  </body>
 </html> 
