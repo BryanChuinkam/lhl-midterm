@@ -26,11 +26,8 @@ router.post('/login', (req, res) => {
   db.getUserByEmailOrPhoneNumber(email, email)
     .then((user) => {
       if (!user) {
-        console.log('errrrrrrror2');
         return res.redirect('/users/login');
       }
-
-    console.log("+++++", password, user)
     bcrypt.compare(password, user.password)
       .then((passwordMatch) => {
         if (!passwordMatch) {
