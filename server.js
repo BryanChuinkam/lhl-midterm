@@ -7,15 +7,16 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
-
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Replace 'views' with the path to your views directory
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -33,20 +34,9 @@ app.use(
 app.use(express.static(__dirname + '/public'));
 
 
-// Set MIME type for JavaScript files
-app.use('/public/scripts', (req, res, next) => {
-  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
-  const mimeType = mime.getType(filePath);
+// const loginRoutes = require('./routes/login');
 
-  if (mimeType === 'text/javascript') {
-    res.setHeader('Content-Type', mimeType);
-    next();
-  } else {
-    res.status(404).send('Not Found');
-  }
-});
-
-// Separated Routes for each Resource
+// Separate Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
@@ -62,12 +52,14 @@ const messagingPageRoute = require('./routes/messaging');
 const messagingApiRoute = require('./routes/messaging-api');
 const getMessagesRoute = require('./routes/getmessages-api');
 
-
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+
+// app.use('/users/login', loginRoutes);
+
 app.use('/users', usersRoutes);
 app.use('/addItem', additemRoutes);
 app.use('/api/additem', additemApiRoutes);
@@ -82,7 +74,18 @@ app.use('/api/messaging', messagingApiRoute);
 app.use('/api/getAllMessagesApi', getMessagesRoute);
 
 
-// Note: mount other resources here, using the same pattern above
+// Set MIME type for JavaScript files
+app.use('/public/scripts', (req, res, next) => {
+  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
+  const mimeType = mime.getType(filePath);
+
+  if (mimeType === 'text/javascript') {
+    res.setHeader('Content-Type', mimeType);
+    next();
+  } else {
+    res.status(404).send('Not Found');
+  }
+});
 
 // Home page
 // Warning: avoid creating more routes in this file!
@@ -90,6 +93,9 @@ app.use('/api/getAllMessagesApi', getMessagesRoute);
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+
+// Note: mount other resources here, using the same pattern above
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

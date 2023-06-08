@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/styles/login.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
+  <script src="/vendor/jquery-3.0.0.js"></script>
+</head>
+<body>
+  <header>
+    <% include('navbar.ejs') %>
+  </header>
+
+  <div class="login-box">
+    <h1>Login</h1>
+    <form action="/users/login" method="POST">
+      <input type="email" id="email" name="email" required placeholder="Email"><br><br>
+      <input type="password" id="password" name="password" required placeholder="Password"><br><br>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</body>
+</html>
