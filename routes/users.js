@@ -28,8 +28,6 @@ router.get('/:user_name', (req, res) => {
   res.render('users_landing_page', templateVars);
 });
 
-
-
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
   console.log('Reached the /users/register route handler');
@@ -60,8 +58,5 @@ router.post('/register', (req, res) => {
       res.redirect('/users/register');
     });
 });
-
-
-
 
 module.exports = router;

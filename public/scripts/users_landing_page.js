@@ -11,7 +11,7 @@ function fetchItems(userName) {
       $itemsList.empty();
       for (const i in response.products) {
 
-        if(response.products[i].stock === 10){
+        if(response.products[i].sold){
           $itemsList.append(`
           <div class="product">
             <li class="image_wrapper">
@@ -24,6 +24,9 @@ function fetchItems(userName) {
             <p>Price: ${response.products[i].price}</p>
             <p>Stock: ${response.products[i].stock}</p>
             <p>Description: ${response.products[i].description}</p>
+            <footer class="product-footer">
+              <i class="fa-regular fa-bookmark"></i>
+            </footer>
           </div>
           `);
         } else{
@@ -34,6 +37,9 @@ function fetchItems(userName) {
               <p>Price: ${response.products[i].price}</p>
               <p>Stock: ${response.products[i].stock}</p>
               <p>Description: ${response.products[i].description}</p>
+              <footer class="product-footer">
+              <i class="fa-regular fa-bookmark" id="fav"></i>
+            </footer>
             </div>`);
 
         }
@@ -44,10 +50,20 @@ function fetchItems(userName) {
 }
 
 
+
+
 $(() => {
   const $userName = $('title').text();
+
   $(window).on("load", function() {
     fetchItems($userName);
   });
+
+  $('#items').on( 'click', '#fav', function(){
+    const grandparent = ($('#fav').parent()).parent()
+    const favProductName = grandparent.find('h3').text().replace("Product Name: ", "")
+    addToFav($userName, favProductName)
+  });
+
 
 });
