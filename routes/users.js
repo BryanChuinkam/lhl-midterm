@@ -3,6 +3,32 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../db/queries/users');
 
+
+
+router.get('/', (req, res) => {
+  res.render('users');
+});
+
+router.get('/landing', (req, res) => {
+  db.getBuyerFavourites(req.query.userName.replace(':', ''))
+    .then((products) => {
+      res.json({ products });
+    }).catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+router.get('/:user_name', (req, res) => {
+  const templateVars = { userName: req.params.user_name.replace(':', '') };
+  res.render('users_landing_page', templateVars);
+});
+
+
+
+
+
 // Handle GET request for the registration page
 router.get('/register', (req, res) => {
   res.render('register');

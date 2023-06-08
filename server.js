@@ -10,11 +10,11 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const path = require('path');
 const mime = require('mime');
-const pullProductsApiRoutes = require('./routes/pullproducts-api');
-const additemRoutes = require('./routes/additem');
-const additemApiRoutes = require('./routes/additem-api');
-const itemsSeller = require('./routes/itemsSeller');
-const itemsSellerApi = require('./routes/itemsSellerApi');
+
+
+
+
+
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -37,35 +37,30 @@ app.use(
   })
 );
 app.use(express.static(__dirname + '/public'));
-
-
-// const loginRoutes = require('./routes/login');
-
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true
 }));
-app.use('/addItem', additemRoutes);
-app.use('/api/additem', additemApiRoutes);
-app.use('/itemsSeller', itemsSeller);
-app.use('/api/itemsSellerApi', itemsSellerApi);
+
 
 // Separate Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const productSearch = require('./routes/product_search');
 const additemRoutes = require('./routes/additem');
 const additemApiRoutes = require('./routes/additem-api');
 const itemsSeller = require('./routes/itemsSeller');
 const itemsSellerApi = require('./routes/itemsSellerApi');
 const deleteItemApi = require('./routes/deleteItem-api');
 const itemSoldApi = require('./routes/itemSold-api');
-const productSearch = require('./routes/product_search');
+
 const messagingPageRoute = require('./routes/messaging');
 const messagingApiRoute = require('./routes/messaging-api');
 const getMessagesRoute = require('./routes/getmessages-api');
+const pullProductsApiRoutes = require('./routes/pullproducts-api');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -73,9 +68,9 @@ const getMessagesRoute = require('./routes/getmessages-api');
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 
-// app.use('/users/login', loginRoutes);
-
 app.use('/users', usersRoutes);
+app.use('/search', productSearch);
+app.use('/api/pullproducts', pullProductsApiRoutes);
 app.use('/addItem', additemRoutes);
 app.use('/api/additem', additemApiRoutes);
 app.use('/itemsSeller', itemsSeller);
@@ -87,11 +82,6 @@ app.use('/api/pullproducts', pullProductsApiRoutes);
 app.use('/messaging', messagingPageRoute);
 app.use('/api/messaging', messagingApiRoute);
 app.use('/api/getAllMessagesApi', getMessagesRoute);
-
-// Set MIME type for JavaScript files
-app.use('/public/scripts', (req, res, next) => {
-  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
-  const mimeType = mime.getType(filePath);
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
@@ -114,9 +104,8 @@ app.get('/', (req, res) => {
   res.render('index', { isLoggedIn });
 });
 
-
 // Note: mount other resources here, using the same pattern above
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
-})});
+});
