@@ -1,4 +1,4 @@
-// load .env data into process.env
+// Load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -7,47 +7,37 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
-
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(
   '/styles',
   sassMiddleware({
     source: __dirname + '/styles',
     destination: __dirname + '/public/styles',
-    isSass: false, // false => scss, true => sass
+    isSass: false,
   })
 );
 app.use(express.static(__dirname + '/public'));
 
+const loginRoutes = require('./routes/users');
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
 
-// Set MIME type for JavaScript files
-app.use('/public/scripts', (req, res, next) => {
-  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
-  const mimeType = mime.getType(filePath);
-
-  if (mimeType === 'text/javascript') {
-    res.setHeader('Content-Type', mimeType);
-    next();
-  } else {
-    res.status(404).send('Not Found');
-  }
-});
-
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
@@ -65,11 +55,9 @@ const productDetails = require('./routes/products');
 
 
 
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+app.use('/users/login', loginRoutes);
 app.use('/users', usersRoutes);
 app.use('/addItem', additemRoutes);
 app.use('/api/additem', additemApiRoutes);
@@ -85,14 +73,21 @@ app.use('/api/getAllMessagesApi', getMessagesRoute);
 app.use('/products', productDetails);
 
 
+app.use('/public/scripts', (req, res, next) => {
+  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
+  const mimeType = mime.getType(filePath);
 
-// Note: mount other resources here, using the same pattern above
+  if (mimeType === 'text/javascript') {
+    res.setHeader('Content-Type', mimeType);
+    next();
+  } else {
+    res.status(404).send('Not Found');
+  }
+});
 
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  res.render('index');
+  const isLoggedIn = req.session.user ? true : false;
+  res.render('index', { isLoggedIn });
 });
 
 app.listen(PORT, () => {

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const db = require('../db/queries/users');
 
 // Handle GET request for the registration page
@@ -8,8 +9,47 @@ router.get('/register', (req, res) => {
 });
 
 // Handle GET request for the users page
-router.get('/', (req, res) => {
-  res.render('users');
+// router.get('/', (req, res) => {
+//   res.render('users');
+// });
+
+// Handle GET request for the login page
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
+// Handle login form submission
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  db.getUserByEmailOrPhoneNumber(email, email)
+    .then((user) => {
+      if (!user) {
+        return res.redirect('/');
+      }
+      bcrypt.compare(password, user.password)
+        .then((passwordMatch) => {
+          if (!passwordMatch) {
+            return res.redirect('/users/login');
+          }
+          req.session.user = user;
+          res.redirect('/');
+        })
+        .catch((err) => {
+          console.log("error", err)
+          res.redirect('/users/login');
+        });
+    })
+    .catch((err) => {
+      console.log('Error retrieving user:', err);
+      res.redirect('/users/login');
+    });
+});
+
+// Handle logout form submission
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
 });
 
 router.get('/landing', (req, res) => {
