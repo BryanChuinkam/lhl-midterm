@@ -16,9 +16,27 @@
       </form>
     </div>
     <div class="right">
-      <a href="/login" class="nav-button">Login</a>
-      <a href="/register" class="nav-button">Register</a>
+      <a id="postItemButton" href="/post" class="nav-button">Post an Item</a>
+      <a id="logoutButton" href="/logout" class="nav-button">Logout</a>
     </div>
   </nav>
+
+  <script>
+    // Assuming isLoggedIn is a boolean variable indicating if the user is logged in
+    const isLoggedIn = true; // Replace with your actual logic
+
+    // Get the buttons by their IDs
+    const postItemButton = document.getElementById("postItemButton");
+    const logoutButton = document.getElementById("logoutButton");
+
+    // Conditionally show/hide the buttons based on the isLoggedIn value
+    if (isLoggedIn) {
+      postItemButton.style.display = "inline-block"; // Show the "Post an Item" button
+      logoutButton.style.display = "inline-block"; // Show the "Logout" button
+    } else {
+      postItemButton.style.display = "none"; // Hide the "Post an Item" button
+      logoutButton.style.display = "none"; // Hide the "Logout" button
+    }
+  </script>
 </body>
 </html>
