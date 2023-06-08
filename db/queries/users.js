@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const db = require('../connection');
 
+<<<<<<< HEAD
+=======
+// A function that takes the entered user data and adds it to the DB
+>>>>>>> navigation
 const createUser = (user_name, email, password, city, province, phone_number) => {
   const contact_preference = '';
   const user_type = '';
