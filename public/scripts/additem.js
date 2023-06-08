@@ -22,7 +22,7 @@ function updateIsSold(button) {
   $.ajax({
     method: 'PUT',
     url: '/api/updateItemSold',
-    data: { d},
+    data: { d },
 
   })
     .then(() => { grabItems(); });
@@ -72,7 +72,7 @@ function populateItems(item) {
 //   <p>SOLD!: ${item.sold}</p>
 //   <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" text="delete">Delete</button>
 //   <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" text="isSold">SOLD</button>
-  
+
 //   <i id="toggle-icon-on" class="fas fa-toggle-on" font-size: 24px style="color: red;font-size: 30px;"></i>
 //   <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
 
@@ -100,16 +100,21 @@ function grabItems() {
 $(() => {
   //get all items in database for certain seller on page load
   grabItems();
-  $('#post-item-form').hide();
+  // $('#post-item-form').hide();
 
+  // $('#showAddForm').click(function () {
+  //   if ($('#post-item-form').is(':visible')) {
+  //     $('#post-item-form').hide();
+  //   } else {
+  //     $('#post-item-form').show();
+  //   }
+  // });
 
-  $('#showAddForm').click(function () {
-    if ($('#post-item-form').is(':visible')) {
-      $('#post-item-form').hide();
-    } else {
-      $('#post-item-form').show();
-    }
+  $('#additem').on('click', function () {
+    $('#post-item-form').submit();
   });
+
+
 
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();
@@ -138,15 +143,11 @@ $(() => {
     })
       .then(function () {
         grabItems();
+
+        // document.getElementById('addItemModal').hide();
+
       });
   });
-
-
-  //toggle the icons
-  $('#toggle-icon-on').on('click', function () {
-    toggleIcon.toggleClass('fa-toggle-off');
-  });
-
 
 
 

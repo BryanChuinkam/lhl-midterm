@@ -24,11 +24,6 @@ router.get('/:user_name', (req, res) => {
   const templateVars = { userName: req.params.user_name.replace(':', '') };
   res.render('users_landing_page', templateVars);
 });
-
-
-
-
-
 // Handle GET request for the registration page
 router.get('/register', (req, res) => {
   res.render('register');
