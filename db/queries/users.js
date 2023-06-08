@@ -1,12 +1,5 @@
 const db = require('../connection');
 
-// const getUsers = () => {
-//   return db.query('SELECT * FROM users;')
-//     .then(data => {
-//       return data.rows;
-//     });
-// };
-
 //A function that takes the entered user data, and adds it to the DB
 const createUser = (user_name, email, password, city, province, phone_number) => {
   const contact_preference = '';

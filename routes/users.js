@@ -18,7 +18,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-console.log('testing logs');
+
 // Handle login form submission
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
