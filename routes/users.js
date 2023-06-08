@@ -12,6 +12,24 @@ router.get('/', (req, res) => {
   res.render('users');
 });
 
+router.get('/landing', (req, res) => {
+  db.getBuyerFavourites(req.query.userName.replace(':', ''))
+    .then((products) => {
+      res.json({ products });
+    }).catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+router.get('/:user_name', (req, res) => {
+  const templateVars = { userName: req.params.user_name.replace(':', '') };
+  res.render('users_landing_page', templateVars);
+});
+
+
+
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
   console.log('Reached the /users/register route handler');
@@ -42,4 +60,8 @@ router.post('/register', (req, res) => {
       res.redirect('/users/register');
     });
 });
+
+
+
+
 module.exports = router;

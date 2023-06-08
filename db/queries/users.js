@@ -25,7 +25,31 @@ const getUserByEmailOrPhoneNumber = (email, phone_number) => {
     });
 };
 
+const getBuyerFavourites = (userName) =>{
+  let values = [userName];
+  let queryString = `
+    SELECT products.name, products.price, products.stock, products.description, products.thumbnail_photo_url, products.stock
+    FROM products
+    JOIN favourites ON favourites.product_id = products.id
+    JOIN users ON users.id = favourites.buyer_id
+    WHERE users.user_name LIKE $1;
+  `;
+
+  return db.query(queryString, values)
+  .then((products) => {
+    if (!products.rows) {
+      return null;
+    }
+    return products.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+}
+
 module.exports = {
   createUser,
   getUserByEmailOrPhoneNumber,
+  getBuyerFavourites
 };

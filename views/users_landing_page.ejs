@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%=userName%></title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <!-- APP CSS-->
+  <link rel="stylesheet" href="/styles/users_landing_page.css" />
+  <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+
+    <!-- EXTERNAL JS -->
+  <script src="/vendor/jquery-3.0.0.js"></script>
+
+    <!-- APP JS -->
+  <script defer src="/scripts/users_landing_page.js"></script>
+</head>
+
+<body>
+  <div class="navbar">
+    <%- include('navbar.ejs') %>
+  </div>
+
+  <h1><%=userName%></h1>
+  <section id="items"></section>
+
+</body>
+
+</html>

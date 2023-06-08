@@ -1,0 +1,64 @@
+body {
+  margin: 1.5em;
+  padding: 0;
+  margin-top: 10.5em;
+}
+
+.container {
+  margin-top: 120px;
+}
+
+.product {
+  border: .25em solid #1d1c1c55;
+  padding: 1.5em;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.product:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.616);
+}
+
+.product img {
+  width: 15.0em;
+  height: 15.0em;
+  object-fit: cover;
+  border: 0.2em solid #1d1c1c55;
+  display: block;
+  object-fit: cover;
+  // width: 100%;
+  height: auto;
+}
+
+.image_wrapper {
+  position: relative;
+}
+
+
+.overlay {
+  position: absolute;
+}
+
+.overlay_0 {
+  left: 0;
+  top: 0;
+  padding: .5rem;
+  margin: 4px;
+  background: #f4208f;
+}
+
+#items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 9.0em;
+  margin-left: 4.0em;
+  margin-right: 4.0em;
+}
+
+p {
+  color: #000000;
+}
+
+h3 {
+  color: #000000;
+}
