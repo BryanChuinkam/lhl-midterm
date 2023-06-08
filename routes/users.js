@@ -47,10 +47,11 @@ router.post('/login', (req, res) => {
 
 // Handle logout form submission
 router.get('/logout', (req, res) => {
-   if (req.session = null);
+  req.session.destroy();
   res.redirect('/');
 });
 
+// Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
   console.log('Reached the /users/register route handler');
   const { user_name, email, password, city, province, phone_number } = req.body;

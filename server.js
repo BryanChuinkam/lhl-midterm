@@ -7,7 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const session = require('express-session');
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
@@ -27,6 +27,7 @@ app.set('views', path.join(__dirname, 'views')); // Replace 'views' with the pat
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(
   '/styles',
   sassMiddleware({
@@ -36,12 +37,15 @@ app.use(
   })
 );
 app.use(express.static(__dirname + '/public'));
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
 app.use('/addItem', additemRoutes);
 app.use('/api/additem', additemApiRoutes);
 app.use('/itemsSeller', itemsSeller);
 app.use('/api/itemsSellerApi', itemsSellerApi);
-
-// const loginRoutes = require('./routes/login');
 
 // Separate Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -55,8 +59,6 @@ const productSearch = require('./routes/product_search');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-
-// app.use('/users/login', loginRoutes);
 
 app.use('/users', usersRoutes);
 app.use('/search', productSearch);
@@ -79,7 +81,7 @@ app.use('/public/scripts', (req, res, next) => {
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  const isLoggedIn = false; // Define the isLoggedIn variable here
+  const isLoggedIn = req.session.user ? true : false;
   res.render('index', { isLoggedIn });
 });
 
