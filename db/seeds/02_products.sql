@@ -7,7 +7,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -18,6 +19,7 @@ VALUES
     'laptops',
     1000,
     20,
+    true,
     true
   );
 
@@ -30,7 +32,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -41,7 +44,8 @@ VALUES
     'laptops',
     680,
     10,
-    FALSE
+    FALSE,
+    true
   );
 
 INSERT INTO
@@ -53,7 +57,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -64,7 +69,8 @@ VALUES
     'laptops',
     800,
     5,
-    FALSE
+    FALSE,
+    true
   );
 
 INSERT INTO
@@ -76,7 +82,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -87,7 +94,8 @@ VALUES
     'laptops',
     950,
     11,
-    FALSE
+    FALSE,
+    true
   );
 
 INSERT INTO
@@ -99,7 +107,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -110,7 +119,8 @@ VALUES
     'laptops',
     900,
     8,
-    FALSE
+    FALSE,
+    true
   );
 
 INSERT INTO
@@ -122,7 +132,8 @@ INSERT INTO
     category_name,
     price,
     stock,
-    promotion
+    promotion,
+    sold
   )
 VALUES
   (
@@ -133,7 +144,8 @@ VALUES
     'laptops',
     400,
     4,
-    FALSE
+    FALSE,
+    true
   );
 
 INSERT INTO
@@ -169,6 +181,7 @@ INSERT INTO
     price,
     stock,
     promotion
+    
   )
 VALUES
   (
@@ -192,6 +205,7 @@ INSERT INTO
     price,
     stock,
     promotion
+    
   )
 VALUES
   (
@@ -215,6 +229,7 @@ INSERT INTO
     price,
     stock,
     promotion
+    
   )
 VALUES
   (
@@ -238,6 +253,7 @@ INSERT INTO
     price,
     stock,
     promotion
+    
   )
 VALUES
   (
@@ -261,6 +277,7 @@ INSERT INTO
     price,
     stock,
     promotion
+    
   )
 VALUES
   (

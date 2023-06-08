@@ -48,6 +48,22 @@ const sendNewMessage = (message, productId, sellerId, buyerId) => {
 
 };
 
+const getSellerProduct = (productId) => {
+  console.log("query the database");
+  const queryString = `SELECT users.user_name, products.name,users.id
+  FROM products 
+  JOIN users ON products.seller_id = users.id
+  WHERE products.id= $1
+  group by users.user_name, products.name,users.id; `;
+  const values = [productId];
+  return db.query(queryString, values)
+    .then((data) => {
+      // console.log(data);
+      return data.rows;
+    }).catch((err) => {
+      console.log(err.message);
+    });;
+};
 
 
-module.exports = { getMessages, sendNewMessage, sendMessage };
+module.exports = { getMessages, sendNewMessage, sendMessage, getSellerProduct };
