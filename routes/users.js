@@ -25,14 +25,13 @@ router.post('/login', (req, res) => {
   db.getUserByEmailOrPhoneNumber(email, email)
     .then((user) => {
       if (!user) {
-        return res.redirect('/users/login');
+        return res.redirect('/');
       }
       bcrypt.compare(password, user.password)
         .then((passwordMatch) => {
           if (!passwordMatch) {
             return res.redirect('/users/login');
           }
-          // Set user session data or perform any necessary operations
           req.session.user = user;
           res.redirect('/');
         })
@@ -47,13 +46,11 @@ router.post('/login', (req, res) => {
 });
 
 // Handle logout form submission
-router.post('/logout', (req, res) => {
-  // Clear user session data or perform any necessary cleanup
-  req.session.destroy();
-  res.redirect('/users/login');
+router.get('/logout', (req, res) => {
+   if (req.session = null);
+  res.redirect('/');
 });
 
-// Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
   console.log('Reached the /users/register route handler');
   const { user_name, email, password, city, province, phone_number } = req.body;
