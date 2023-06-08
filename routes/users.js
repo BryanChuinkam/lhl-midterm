@@ -9,19 +9,15 @@ router.get('/register', (req, res) => {
 });
 
 // Handle GET request for the users page
-router.get('/', (req, res) => {
-  res.render('users');
-});
+// router.get('/', (req, res) => {
+//   res.render('users');
+// });
 
 // Handle GET request for the login page
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
-<<<<<<< HEAD
-console.log('testing logs');
-=======
->>>>>>> navigation
 // Handle login form submission
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -29,21 +25,6 @@ router.post('/login', (req, res) => {
   db.getUserByEmailOrPhoneNumber(email, email)
     .then((user) => {
       if (!user) {
-<<<<<<< HEAD
-        return res.redirect('/users/login');
-      }
-    bcrypt.compare(password, user.password)
-      .then((passwordMatch) => {
-        if (!passwordMatch) {
-          return res.redirect('/users/login');
-        }
-          res.redirect('/');
-      })
-      .catch((err) => {
-        res.redirect('/users/login');
-      });
-
-=======
         return res.redirect('/');
       }
       bcrypt.compare(password, user.password)
@@ -55,9 +36,9 @@ router.post('/login', (req, res) => {
           res.redirect('/');
         })
         .catch((err) => {
+          console.log("error", err)
           res.redirect('/users/login');
         });
->>>>>>> navigation
     })
     .catch((err) => {
       console.log('Error retrieving user:', err);
@@ -65,14 +46,11 @@ router.post('/login', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-=======
 // Handle logout form submission
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
->>>>>>> navigation
 
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
