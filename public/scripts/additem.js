@@ -33,27 +33,52 @@ function updateIsSold(button) {
 
 
 
-
-
-
 function populateItems(item) {
-  let $item = $(`<div class="product">
-  <img id="itemImage" src="${item.thumbnail_photo_url}" alt="no image">
-  <h4>Product Name: ${item.name}</h4>
-  <p>Price: ${item.price}</p>
-  <p>Stock: ${item.stock}</p>
-  <p>Description: ${item.description}</p>
-  <p>featured: ${item.promotion}</p>
-  <p>SOLD!: ${item.sold}</p>
-  <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" text="delete">Delete</button>
-  <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" text="isSold">SOLD</button>
-  
-  <i id="toggle-icon-on" class="fas fa-toggle-on" font-size: 24px style="color: red;font-size: 30px;"></i>
-  <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
-
+  let $item = $(`
+  <div class="col">
+    <div class="card mb-8">
+      <div class="row g-0">
+        <div class="col-md-2">
+          <img src="${item.thumbnail_photo_url}" class="img-fluid rounded-start" alt="no image">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">${item.name}  ${item.promotion ? "<span class=\"badge text-bg-primary\">Featured</span>" : ""} </h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Price: $${item.price}</h6>
+            <p class="card-text">${item.description}</p>
+            <p class="card-text"><small class="text-body-secondary"> ${item.sold ? "<span class=\"badge text-bg-danger\">Sold out!</span>" : `Only ${item.stock} remaining in stock`}</small></p>
+          </div>
+          <div class="card-body">
+            <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" class="btn btn-primary">Delete</button>
+            <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" class="btn btn-primary">SOLD</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 `);
   return $item
 }
+
+
+// function populateItems(item) {
+//   let $item = $(`<div class="product">
+//   <img id="itemImage" src="${item.thumbnail_photo_url}" alt="no image">
+//   <h4>Product Name: ${item.name}</h4>
+//   <p>Price: ${item.price}</p>
+//   <p>Stock: ${item.stock}</p>
+//   <p>Description: ${item.description}</p>
+//   <p>featured: ${item.promotion}</p>
+//   <p>SOLD!: ${item.sold}</p>
+//   <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" text="delete">Delete</button>
+//   <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" text="isSold">SOLD</button>
+  
+//   <i id="toggle-icon-on" class="fas fa-toggle-on" font-size: 24px style="color: red;font-size: 30px;"></i>
+//   <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
+
+// `);
+//   return $item
+// }
 function grabItems() {
   return $.ajax({
     method: 'GET',
