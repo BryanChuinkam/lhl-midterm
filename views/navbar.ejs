@@ -1,42 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Navbar Example</title>
-  <link rel="stylesheet" href="/styles/navbar.css">
-</head>
-<body>
-  <nav class="navbar">
-    <div class="left">
-      <span class="logo">Sell-ebration</span>
-    </div>
-    <div class="center">
-      <form class="search-form" action="/search" method="GET">
-        <input type="text" name="query" placeholder="Search...">
-        <button type="submit">Search</button>
-      </form>
-    </div>
-    <div class="right">
-      <a id="postItemButton" href="/post" class="nav-button">Post an Item</a>
-      <a id="logoutButton" href="/logout" class="nav-button">Logout</a>
-    </div>
-  </nav>
+<nav class="navbar">
+  <div class="left">
+    <span class="logo">Sell-ebration</span>
+  </div>
+  <div class="center">
+    <form class="search-form" action="/search" method="GET">
+      <input type="text" name="query" placeholder="Search...">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div class="right">
+    <% if (isLoggedIn) { %>
+      <a href="/post" class="nav-button">Post an Item</a>
+      <a href="/logout" class="nav-button">Logout</a>
+    <% } else { %>
+      <a href="/users/login" class="nav-button">Login</a>
+      <a href="/users/register" class="nav-button">Register</a>
+    <% } %>
+  </div>
+</nav>
 
-  <script>
-    // Assuming isLoggedIn is a boolean variable indicating if the user is logged in
-    const isLoggedIn = true; // Replace with your actual logic
-
-    // Get the buttons by their IDs
-    const postItemButton = document.getElementById("postItemButton");
-    const logoutButton = document.getElementById("logoutButton");
-
-    // Conditionally show/hide the buttons based on the isLoggedIn value
-    if (isLoggedIn) {
-      postItemButton.style.display = "inline-block"; // Show the "Post an Item" button
-      logoutButton.style.display = "inline-block"; // Show the "Logout" button
-    } else {
-      postItemButton.style.display = "none"; // Hide the "Post an Item" button
-      logoutButton.style.display = "none"; // Hide the "Logout" button
-    }
-  </script>
-</body>
-</html>

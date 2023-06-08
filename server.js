@@ -1,4 +1,4 @@
-// load .env data into process.env
+// Load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -7,6 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
@@ -15,11 +16,11 @@ const additemApiRoutes = require('./routes/additem-api');
 const itemsSeller = require('./routes/itemsSeller');
 const itemsSellerApi = require('./routes/itemsSellerApi');
 
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Replace 'views' with the path to your views directory
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -40,6 +41,27 @@ app.use('/api/additem', additemApiRoutes);
 app.use('/itemsSeller', itemsSeller);
 app.use('/api/itemsSellerApi', itemsSellerApi);
 
+// const loginRoutes = require('./routes/login');
+
+// Separate Routes for each Resource
+// Note: Feel free to replace the example routes below with your own
+const userApiRoutes = require('./routes/users-api');
+const widgetApiRoutes = require('./routes/widgets-api');
+const usersRoutes = require('./routes/users');
+const productSearch = require('./routes/product_search');
+
+// Mount all resource routes
+// Note: Feel free to replace the example routes below with your own
+// Note: Endpoints that return data (eg. JSON) usually start with `/api`
+app.use('/api/users', userApiRoutes);
+app.use('/api/widgets', widgetApiRoutes);
+
+// app.use('/users/login', loginRoutes);
+
+app.use('/users', usersRoutes);
+app.use('/search', productSearch);
+app.use('/api/pullproducts', pullProductsApiRoutes);
+
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
   const filePath = path.join(__dirname, 'public', 'scripts', req.path);
@@ -53,32 +75,15 @@ app.use('/public/scripts', (req, res, next) => {
   }
 });
 
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
-const productSearch = require('./routes/product_search');
-
-
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
-app.use('/search', productSearch);
-app.use('/api/pullproducts', pullProductsApiRoutes);
-
-
-// Note: mount other resources here, using the same pattern above
-
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  res.render('index');
+  const isLoggedIn = false; // Define the isLoggedIn variable here
+  res.render('index', { isLoggedIn });
 });
+
+// Note: mount other resources here, using the same pattern above
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

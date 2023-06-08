@@ -1,24 +1,43 @@
-// Import required modules
 const express = require('express');
-const app = express();
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const db = require('../db/queries/users');
+app.set('view engine', 'ejs');
 
-// Define route handlers
+
+// Handle GET request for the login page
 app.get('/users/login', (req, res) => {
-  res.send('Login page');
+  res.render('login', { isLoggedIn: false }); // Assuming the initial state is false
 });
 
+// Handle POST request for the login form submission
+app.post('/users/login', (req, res) => {
+  isLoggedIn = true;
+  res.redirect('/users/login');
+});
+
+// Handle GET request for the register page
 app.get('/users/register', (req, res) => {
-  res.send('Register page');
+  res.render('register', { isLoggedIn: false });
 });
 
+// Handle POST request for the register form submission
+app.post('/users/register', (req, res) => {
+  res.redirect('/users/register');
+});
+
+// Handle GET request for the post page
 app.get('/post', (req, res) => {
-  res.send('Post an Item page');
+  if (isLoggedIn) {
+    res.render('post-item');
+  } else {
+    res.redirect('/users/login');
+  }
 });
 
+// Handle GET request for the logout page
 app.get('/logout', (req, res) => {
-  res.send('Logout page');
+  isLoggedIn = false;
+  res.redirect('/');
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
