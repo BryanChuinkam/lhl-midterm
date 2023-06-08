@@ -1,4 +1,4 @@
-// load .env data into process.env
+// Load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -7,10 +7,14 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const session = require('express-session');
 const path = require('path');
 const mime = require('mime');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
+const additemRoutes = require('./routes/additem');
+const additemApiRoutes = require('./routes/additem-api');
+const itemsSeller = require('./routes/itemsSeller');
+const itemsSellerApi = require('./routes/itemsSellerApi');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -23,6 +27,7 @@ app.set('views', path.join(__dirname, 'views')); // Replace 'views' with the pat
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(
   '/styles',
   sassMiddleware({
@@ -35,6 +40,16 @@ app.use(express.static(__dirname + '/public'));
 
 
 // const loginRoutes = require('./routes/login');
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use('/addItem', additemRoutes);
+app.use('/api/additem', additemApiRoutes);
+app.use('/itemsSeller', itemsSeller);
+app.use('/api/itemsSellerApi', itemsSellerApi);
 
 // Separate Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -73,6 +88,10 @@ app.use('/messaging', messagingPageRoute);
 app.use('/api/messaging', messagingApiRoute);
 app.use('/api/getAllMessagesApi', getMessagesRoute);
 
+// Set MIME type for JavaScript files
+app.use('/public/scripts', (req, res, next) => {
+  const filePath = path.join(__dirname, 'public', 'scripts', req.path);
+  const mimeType = mime.getType(filePath);
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {
@@ -91,7 +110,8 @@ app.use('/public/scripts', (req, res, next) => {
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  res.render('index');
+  const isLoggedIn = req.session.user ? true : false;
+  res.render('index', { isLoggedIn });
 });
 
 
@@ -99,4 +119,4 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
-});
+})});

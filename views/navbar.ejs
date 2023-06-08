@@ -1,18 +1,18 @@
-<nav>
-  <span class="logo">Sell-ebration</span>
-
-  <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
-    <input type="text" class="form-control" placeholder="Search for specific product" name ="productSearched" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="submit">Search</button>
-    </div>
-  </form>
-
-
-  <div class="right">
-    <span class="words">
-      <span class="logo-text"> Post an Item </span>
-    </span>
-      <i class="fa-solid fa-angles-down"></i>
-    </button>
+<nav class="navbar">
+  <div class="left">
+    <span class="logo">Sell-ebration</span>
   </div>
+  <div class="center">
+    <form class="search-form" action="/search" method="GET">
+      <input type="text" name="query" placeholder="Search...">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div class="right">
+      <a href="/post" class="nav-button">Post an Item</a>
+      <a href="/users/logout" class="nav-button">Logout</a>
+      <a href="/users/login" class="nav-button">Login</a>
+      <a href="/users/register" class="nav-button">Register</a>
+  </div>
+</nav>
+
