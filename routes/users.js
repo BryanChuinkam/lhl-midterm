@@ -18,8 +18,6 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-
-// Handle login form submission
 // Handle login form submission
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -29,17 +27,18 @@ router.post('/login', (req, res) => {
       if (!user) {
         return res.redirect('/users/login');
       }
-    bcrypt.compare(password, user.password)
-      .then((passwordMatch) => {
-        if (!passwordMatch) {
-          return res.redirect('/users/login');
-        }
+      bcrypt.compare(password, user.password)
+        .then((passwordMatch) => {
+          if (!passwordMatch) {
+            return res.redirect('/users/login');
+          }
+          // Set user session data or perform any necessary operations
+          req.session.user = user;
           res.redirect('/');
-      })
-      .catch((err) => {
-        res.redirect('/users/login');
-      });
-
+        })
+        .catch((err) => {
+          res.redirect('/users/login');
+        });
     })
     .catch((err) => {
       console.log('Error retrieving user:', err);
@@ -47,6 +46,12 @@ router.post('/login', (req, res) => {
     });
 });
 
+// Handle logout form submission
+router.post('/logout', (req, res) => {
+  // Clear user session data or perform any necessary cleanup
+  req.session.destroy();
+  res.redirect('/users/login');
+});
 
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {
@@ -78,4 +83,5 @@ router.post('/register', (req, res) => {
       res.redirect('/users/register');
     });
 });
+
 module.exports = router;
