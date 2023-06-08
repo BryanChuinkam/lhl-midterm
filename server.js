@@ -58,6 +58,9 @@ const itemsSellerApi = require('./routes/itemsSellerApi');
 const deleteItemApi = require('./routes/deleteItem-api');
 const itemSoldApi = require('./routes/itemSold-api');
 const productSearch = require('./routes/product_search');
+const messagingPageRoute = require('./routes/messaging');
+const messagingApiRoute = require('./routes/messaging-api');
+const getMessagesRoute = require('./routes/getmessages-api');
 
 
 // Mount all resource routes
@@ -74,6 +77,9 @@ app.use('/api/deleteItem', deleteItemApi);
 app.use('/api/updateItemSold', itemSoldApi);
 app.use('/search', productSearch);
 app.use('/api/pullproducts', pullProductsApiRoutes);
+app.use('/messaging', messagingPageRoute);
+app.use('/api/messaging', messagingApiRoute);
+app.use('/api/getAllMessagesApi', getMessagesRoute);
 
 
 // Note: mount other resources here, using the same pattern above

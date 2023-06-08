@@ -1,12 +1,12 @@
 const db = require('../connection');
 
-const addItemDatabase = (product,seller_id) => {
+const addItemDatabase = (product, seller_id) => {
   console.log("enter the db", product.name,
-  product.description,
-  product.thumbnail_photo_url,
-  product.category_name,
-  product.price,
-  product.stock);
+    product.description,
+    product.thumbnail_photo_url,
+    product.category_name,
+    product.price,
+    product.stock);
   return db.query(
     'INSERT INTO products (seller_id, name, description, thumbnail_photo_url, category_name, price, stock, promotion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
     [
@@ -17,12 +17,12 @@ const addItemDatabase = (product,seller_id) => {
       product.category_name,
       product.price,
       product.stock,
-      product.promotion|| false
+      product.promotion || false
     ])
-    
-    // .then(data => {
-    //   return data.rows;
-    // });
+
+  // .then(data => {
+  //   return data.rows;
+  // });
 };
 
 module.exports = { addItemDatabase };

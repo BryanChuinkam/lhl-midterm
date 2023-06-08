@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <title>messages</title>
+  
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/messaging.css" />
+  
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/messaging.js"></script>
+  </head>
+</head>
+<body>
+  <h3>Messages</h3>
+  <form id="message-form" >
+<section id="fields">
+  <label for="senderName">Seller Name:</label>
+  <input type="text" id="senderName">
+
+  <label for="productName">Product id:</label>
+  <input type="text" id="productName">
+
+  <label for="buyerName">Your Name:</label>
+  <input type="text" id="buyerName">
+</section>
+  <textarea id="messageText" name="messageText" ></textarea>
+
+  
+    <input id= "sendButton" type="submit" value="send">
+  
+
+  <h3>Message History</h3>
+  <section id="messageHistory"></section>
+</form>
+</body>
+</html>
