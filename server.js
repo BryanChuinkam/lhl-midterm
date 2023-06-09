@@ -35,7 +35,7 @@ const loginRoutes = require('./routes/users');
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
 
 const userApiRoutes = require('./routes/users-api');
@@ -84,6 +84,12 @@ app.use('/public/scripts', (req, res, next) => {
 app.get('/', (req, res) => {
   const userId = req.session.user ? req.session.user.id : null;
   res.render('index', { userId });
+});
+
+app.get('/check-session', (req, res) => {
+  const userId = req.session.user ? req.session.user.id : null;
+  console.log(req.session);
+  res.json({ userId });
 });
 
 app.listen(PORT, () => {
