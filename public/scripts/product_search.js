@@ -29,14 +29,15 @@ function displayresultsContent(response, productCategory, priceFiltersApplied) {
     $searchResults.append(`
       <div class="productContainers">
         <div class="resultsImageContainer">
-        <img src="${response.products[i].thumbnail_photo_url}" alt="${response.products[i].description}" width="200" height="200">
-      </div>
-      <div class="resultsTextContainer">
-        <h4>${response.products[i].name}</h4>
-        <p>${response.products[i].description}</p>
-      </div>
-      <div class="resultsPriceContainer">
+          <img src="${response.products[i].thumbnail_photo_url}" alt="${response.products[i].description}" width="200" height="200">
+        </div>
+        <div class="resultsTextContainer">
+          <h3>${response.products[i].name}</h3>
+          <p>${response.products[i].description}</p>
+        </div>
+        <div class="resultsPriceContainer">
           $ ${response.products[i].price}
+        </div>
       </div>
       `);
   }
@@ -105,5 +106,11 @@ $(() => {
     $('#max-price-txt').text('$' + $maxPrice);
     showProductsFiltered($productCategory, $minPrice, $maxPrice);
   });
+
+  $('#searchResults').on('click', '.productContainers', function() {
+    const productName = $(this).find('h3').text().replace("Product Name: ", "");
+    window.location.href = `/products/${productName}`;
+  });
+
 
 });

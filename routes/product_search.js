@@ -9,16 +9,28 @@ router.get('/', (req, res) => {
     return res.redirect('index.ejs');
   }
 
-  const templateVars = { categorySearch: req.query.productSearched };
+  const templateVars = { categorySearch: req.query.query };
   res.render('search_results', templateVars);
 });
 
 router.get('/products', (req, res) => {
+  if (!req.query) {
+    res.status(400).json({ error: 'invalid request: category not found' });
+    return res.redirect('index.ejs');
+  }
+
   userQueries.getProducts(req.query.productCategory)
     .then((products) => {
-      userQueries.getMaxPrice()
+      userQueries.getMaxPrice(req.query.productCategory)
         .then((maxPrice) => {
-          res.json({ products, maxPrice });
+          console.log("maxPRICE", maxPrice)
+          if (products.length > 0) {
+            return res.json({ products, maxPrice });
+          }
+          else {
+            return res.send('NOT FOUND');
+          }
+
         });
 
     }).catch(err => {

@@ -23,7 +23,7 @@ function fetchItem(prodName) {
             <p>Stock: ${response.product[0].stock}</p>
             <p>Description: ${response.product[0].description}</p>
             <footer class="product-footer">
-              <i class="fa-regular fa-bookmark"></i>
+              <i class="fa-regular fa-bookmark" id="fav"></i>
             </footer>
           </div>
           `);
@@ -47,18 +47,11 @@ function fetchItem(prodName) {
 
 
 
-
 $(() => {
   const $prodName = $('title').text();
 
   $(window).on("load", function() {
     fetchItem($prodName);
-  });
-
-  $('#items').on('click', '#fav', function() {
-    const grandparent = ($('#fav').parent()).parent();
-    const favProductName = grandparent.find('h3').text().replace("Product Name: ", "");
-    addToFav($userName, favProductName);
   });
 
 

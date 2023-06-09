@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/queries/products');
 
+
 router.get('/details', (req, res) => {
   db.fetchProduct(req.query.prodName)
     .then((product) => {
