@@ -3,54 +3,44 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../db/queries/users');
 
+// A function that generates a unique ID
+function generateUniqueId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 // Handle GET request for the registration page
 router.get('/register', (req, res) => {
   res.render('register');
 });
 
-// Handle GET request for the users page
-// router.get('/', (req, res) => {
-//   res.render('users');
-// });
-
 // Handle GET request for the login page
 router.get('/login', (req, res) => {
-  res.render('login');
+  const userId = req.session.user ? req.session.user.id : null;
+  res.render('login', { userId });
 });
 
 // Handle login form submission
 router.post('/login', (req, res) => {
-  const { email, password } = req.body;
-
-  db.getUserByEmailOrPhoneNumber(email, email)
-    .then((user) => {
-      if (!user) {
-        return res.redirect('/');
-      }
-      bcrypt.compare(password, user.password)
-        .then((passwordMatch) => {
-          if (!passwordMatch) {
-            return res.redirect('/users/login');
-          }
-          req.session.user = user;
-          res.redirect('/');
-        })
-        .catch((err) => {
-          console.log("error", err)
-          res.redirect('/users/login');
-        });
-    })
-    .catch((err) => {
-      console.log('Error retrieving user:', err);
-      res.redirect('/users/login');
-    });
+  const userId = generateUniqueId();
+  req.session.user = {
+    id: userId
+  };
+  console.log(userId)
+  res.redirect('/');
 });
+
+
 
 // Handle logout form submission
 router.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.redirect('/');
+  });
 });
+
 
 // Handle POST request for the registration form submission
 router.post('/register', (req, res) => {

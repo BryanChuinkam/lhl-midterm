@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const db = require('../connection');
 
+function generateUniqueId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 // A function that takes the entered user data and adds it to the DB
 const createUser = (user_name, email, password, city, province, phone_number) => {
   const contact_preference = '';
@@ -23,8 +27,12 @@ const getUserByEmailOrPhoneNumber = (email, phone_number) => {
     });
 };
 
+
+
+
 module.exports = {
   createUser,
   getUserByEmailOrPhoneNumber,
+  generateUniqueId,
 };
 
