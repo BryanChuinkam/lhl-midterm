@@ -27,9 +27,21 @@ function updateIsSold(button) {
   })
     .then(() => { grabItems(); });
 
-  // return d;
 }
+function sendUserMessage(button) {
+  let productId = $(button).data('product-id');
+  $('#productIdInput').val(productId);
+  
+}
+// function sendUserMessage(button) {
+//   let productId = $(button).data('product-id');
 
+//   $('#card-body').on('click', function () {
+//     $('#send-message-form').submit();
+//     alert(productId);
+    
+//   });
+// }
 
 
 
@@ -51,7 +63,11 @@ function populateItems(item) {
           <div class="card-body">
             <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" class="btn btn-primary">Delete</button>
             <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" class="btn btn-primary">SOLD</button>
-            <button name="isSold" type="button" data-product-id="${item.id}" onclick="sendUserMessage(this)" class="btn btn-primary">Send message</button>
+            <button name="sendMessage" type="button" data-product-id="${item.id}" data-bs-toggle="modal" data-bs-target="#sendMessageForm"  onclick="sendUserMessage(this)" class="btn btn-primary" >Send message</button>
+            
+            
+
+            
           </div>
         </div>
       </div>
@@ -110,12 +126,36 @@ $(() => {
   //     $('#post-item-form').show();
   //   }
   // });
+  $('#sendMessageButtonNested').on('click', function () {
+    $('#send-message-form').submit();
+    // alert(productId);
+    
+  });
+  
+  $('#send-message-form').on('submit', function (event) {
+    event.preventDefault();
+    const data = $(this).serialize();
+    alert("ajax request"+ data);
+
+    $.ajax({
+      method: 'POST',
+      url: '/api/addnewMessage',
+      data: data
+    })
+    .then(function () {
+      alert("done!");
+      grabItems();
+    });
+  });
+
+
+
 
   $('#additem').on('click', function () {
     $('#post-item-form').submit();
   });
-
-
+  
+  
 
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();

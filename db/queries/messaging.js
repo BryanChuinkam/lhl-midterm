@@ -7,7 +7,7 @@ const getMessages = (threadId) => {
                         FROM messages 
                         JOIN threads ON messages.thread_id = threads.id
                         JOIN users ON threads.buyer_id = users.id
-                        WHERE messages.thread_id = $1
+                        WHERE threads.seller_id = $1
                         group by messages.message, messages.created_at, users.user_name, messages.thread_id
                         order by messages.created_at desc; `;
   const values = [threadId];
@@ -33,13 +33,13 @@ const sendMessage = (message, threadId) => {
 
 };
 
-const sendNewMessage = (message, productId, sellerId, buyerId) => {
-  console.log("enter the db", message.text);
+const sendNewMessage = (message, buyerId) => {
+  console.log("enter the db", message.messageText);
   return db.query(
     'WITH createThread AS (INSERT INTO threads (product_id, seller_id, buyer_id) VALUES ($1, $2, $3)RETURNING id) INSERT INTO messages (message, thread_id) SELECT $4, id FROM createThread;',
     [
-      productId,
-      sellerId,
+      message.productId,
+      1,
       buyerId,
       message.messageText
     ]).catch((err) => {

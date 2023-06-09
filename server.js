@@ -61,6 +61,7 @@ const messagingPageRoute = require('./routes/messaging');
 const messagingApiRoute = require('./routes/messaging-api');
 const getMessagesRoute = require('./routes/getmessages-api');
 const pullProductsApiRoutes = require('./routes/pullproducts-api');
+const sendMessagesUserRoute = require('./routes/addMessage-api');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -82,6 +83,7 @@ app.use('/api/pullproducts', pullProductsApiRoutes);
 app.use('/messaging', messagingPageRoute);
 app.use('/api/messaging', messagingApiRoute);
 app.use('/api/getAllMessagesApi', getMessagesRoute);
+app.use('/api/addnewMessage', sendMessagesUserRoute);
 
 // Set MIME type for JavaScript files
 app.use('/public/scripts', (req, res, next) => {

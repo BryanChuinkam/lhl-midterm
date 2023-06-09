@@ -29,7 +29,7 @@
     <!-- <button id="showAddForm" class="btn btn-primary">Show/Hide Add Form</button> -->
     <br><br><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal"
       data-bs-whatever="">Add Product Form</button>
-  </br></br>
+    </br></br>
     <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -91,6 +91,41 @@
         </div>
       </div>
     </div>
+
+    <section id="modals">
+
+
+      <div class="modal fade" id="sendMessageForm" tabindex="-1" aria-labelledby="sendMessageFormLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="sendMessageFormLabel">New message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="send-message-form">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="recipient-name">
+                </div>
+                <input type="hidden" id="productIdInput" name="productId" value="">
+
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text" name="messageText"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="sendMessageButtonNested" type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="items" class="row row-cols-1 row-cols-md-1 g-4">
       <!-- <p>help</p> -->
     </section>
