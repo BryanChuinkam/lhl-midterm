@@ -51,6 +51,7 @@ function populateItems(item) {
           <div class="card-body">
             <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" class="btn btn-primary">Delete</button>
             <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" class="btn btn-primary">SOLD</button>
+            <button name="isSold" type="button" data-product-id="${item.id}" onclick="sendUserMessage(this)" class="btn btn-primary">Send message</button>
           </div>
         </div>
       </div>
