@@ -59,6 +59,12 @@ $(() => {
     fetchItems($userName);
   });
 
+  $('#items').on('click', '.product', function() {
+    const productName = $(this).find('h3').text().replace("Product Name: ", "");
+    window.location.href = `/products/${productName}`;
+  });
+
+  
   $('#items').on( 'click', '#fav', function(){
     const grandparent = ($('#fav').parent()).parent()
     const favProductName = grandparent.find('h3').text().replace("Product Name: ", "")

@@ -1,3 +1,4 @@
+
 function addToFav(userName, prodName) {
   $.ajax({
     method: 'POST',

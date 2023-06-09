@@ -19,14 +19,27 @@ router.get('/login', (req, res) => {
   res.render('login', { userId });
 });
 
+
+
 // Handle login form submission
 router.post('/login', (req, res) => {
-  const userId = generateUniqueId();
-  req.session.user = {
-    id: userId
-  };
-  console.log(userId)
-  res.redirect('/');
+
+  console.log("email: ", req.body.email);
+
+  db.getUserByEmail(req.body.email)
+  .then((user) => {
+    console.log('user: ', user);
+    req.session.user = {
+      id: user.id
+    };
+    res.redirect(`/users/${user.user_name}`);
+
+  }).catch(err => {
+    res
+      .status(500)
+      .json({ error: err.message });
+  });
+
 });
 
 

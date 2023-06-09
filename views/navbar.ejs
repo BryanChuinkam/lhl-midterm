@@ -14,16 +14,11 @@
   </div>
   <div class="right">
 <!-- Show the login and register links if the user is not logged in -->
-<% if (!userId) { %>
   <a href="/users/login">Login</a>
   <a href="/users/register">Register</a>
-<% } %>
 
 <!-- Show the user-specific links if the user is logged in -->
-<% if (userId) { %>
-  <a href="/addItem">Post Item</a>
-  <a href="/users/logout">Logout</a>
-<% } %>
+
   </div>
 </nav>
 </html>

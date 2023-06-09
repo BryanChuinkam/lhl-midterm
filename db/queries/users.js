@@ -25,6 +25,27 @@ const getUserByEmailOrPhoneNumber = (email, phone_number) => {
     });
 };
 
+const getUserByEmail = (email) => {
+  let values = [email];
+  let queryString = 'SELECT id, user_name FROM users WHERE email = $1;';
+
+  return db.query(queryString, values)
+    .then((user) => {
+      if (!user.rows) {
+        return null;
+      }
+      return user.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+
+};
+
+
+
+
+
 const getBuyerFavourites = (userName) => {
   let values = [userName];
   let queryString = `
@@ -99,6 +120,7 @@ function generateUniqueId() {
 module.exports = {
   createUser,
   getUserByEmailOrPhoneNumber,
+  getUserByEmail,
   getBuyerFavourites,
   getBuyerId,
   getProductId,
