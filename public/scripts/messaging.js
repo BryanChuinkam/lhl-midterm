@@ -22,8 +22,6 @@ function getAllMessages(threadId) {
       console.error("AJAX request failed:", error);
     });
 }
-
-
 function populateMessages(message) {
   var $message = $(
     `<section>
@@ -40,14 +38,14 @@ $(() => {
   $('#message-form').on('submit', (event) => {
     event.preventDefault();
     console.log("ajax request");
-  const data = $('#message-form').serialize();
-  $.ajax({
-    method: 'POST',
-    url: '/api/messaging',
-    data: data
-  }).then(function () {
-    getAllMessages(1); //change this to thread id from the user threads
-  });
+    const data = $('#message-form').serialize();
+    $.ajax({
+      method: 'POST',
+      url: '/api/messaging',
+      data: data
+    }).then(function () {
+      getAllMessages(1); //change this to thread id from the user threads
+    });
   })
 });
 

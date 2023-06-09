@@ -14,7 +14,6 @@ const getMessages = (adminId) => {
   const values = [adminId];
   return db.query(queryString, values)
     .then((data) => {
-      // console.log(data);
       return data.rows;
     }).catch((err) => {
       console.log(err.message);
@@ -59,7 +58,6 @@ const getSellerProduct = (productId) => {
   const values = [productId];
   return db.query(queryString, values)
     .then((data) => {
-      // console.log(data);
       return data.rows;
     }).catch((err) => {
       console.log(err.message);

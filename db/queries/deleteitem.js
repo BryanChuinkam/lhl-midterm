@@ -8,7 +8,6 @@ const deleteProductQuery = (itemId) => {
   return db.query(queryString, values)
     .then(() => {
       console.log("delete success");
-      // return data.rows;
     });
 };
 

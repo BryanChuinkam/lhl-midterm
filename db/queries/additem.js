@@ -19,10 +19,6 @@ const addItemDatabase = (product, seller_id) => {
       product.stock,
       product.promotion || false
     ])
-
-  // .then(data => {
-  //   return data.rows;
-  // });
 };
 
 module.exports = { addItemDatabase };

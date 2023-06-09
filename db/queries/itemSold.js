@@ -8,10 +8,7 @@ const productSold = (itemId) => {
   return db.query(queryString, values)
     .then(() => {
       console.log("Sold!");
-      // return data.rows;
     });
 };
-
-
 
 module.exports = { productSold };

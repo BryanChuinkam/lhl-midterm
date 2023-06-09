@@ -6,7 +6,6 @@ const getProductsBySellerId = (sellerID) => {
   const values = [sellerID];
   return db.query(queryString, values)
     .then((data) => {
-      // console.log(data.rows);
       return data.rows;
     });
 };

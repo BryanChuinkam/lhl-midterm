@@ -10,8 +10,6 @@ function deleteProduct(button) {
 
   })
     .then(() => { grabItems(); });
-
-  // return d;
 }
 
 //update an item the is sold out 
@@ -31,7 +29,7 @@ function updateIsSold(button) {
 function sendUserMessage(button) {
   let productId = $(button).data('product-id');
   $('#productIdInput').val(productId);
-  
+
 }
 
 function populateItems(item) {
@@ -71,8 +69,6 @@ function grabItems() {
       $itemsList.empty();
 
       for (const item of response) {
-        console.log(item)
-        // $item.appendTo($itemsList);
         $itemsList.prepend(populateItems(item));
       }
       $('#item-image, #item-name, #item-description, #item-price, #item-category, #item-quantity, #featured-item').val('');
@@ -80,57 +76,40 @@ function grabItems() {
 }
 
 $(() => {
-  //get all items in database for certain seller on page load
-  grabItems();
-  // $('#post-item-form').hide();
 
-  // $('#showAddForm').click(function () {
-  //   if ($('#post-item-form').is(':visible')) {
-  //     $('#post-item-form').hide();
-  //   } else {
-  //     $('#post-item-form').show();
-  //   }
-  // });
+  grabItems();
+
   $('#sendMessageButtonNested').on('click', function () {
     $('#send-message-form').submit();
-    // alert(productId);
-    
+
   });
-  
+
   $('#send-message-form').on('submit', function (event) {
     event.preventDefault();
     const data = $(this).serialize();
-    // alert("ajax request"+ data);
 
     $.ajax({
       method: 'POST',
       url: '/api/addnewMessage',
       data: data
     })
-    .then(function () {
-      alert("Sent!");
-      grabItems();
-    });
+      .then(function () {
+        alert("Sent!");
+        grabItems();
+      });
   });
-
-
 
 
   $('#additem').on('click', function () {
     $('#post-item-form').submit();
   });
-  
-  
+
 
   $('#post-item-form').on('submit', (event) => {
     event.preventDefault();
     console.log("ajax request");
 
 
-
-    //   const data = $('#post-item-form').serialize({
-    //     checkboxesAsBools: true
-    // });
     let data = $(event.target).serializeArray()
       .filter(function (item) {
         return item.name != "promotion";
@@ -140,8 +119,6 @@ $(() => {
       });
     data = jQuery.param(data);
 
-
-
     $.ajax({
       method: 'POST',
       url: '/api/additem',
@@ -150,13 +127,8 @@ $(() => {
       .then(function () {
         grabItems();
 
-        // document.getElementById('addItemModal').hide();
-
       });
   });
-
-
-
 
 });
 
