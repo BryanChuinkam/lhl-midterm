@@ -1,6 +1,8 @@
-#contentContainer {
-  padding-top: 130px;
 
+div#contentContainer {
+  padding-top: 130px;
+  background-color: #f3efe9;
+  background-image: url("https://www.transparenttextures.com/patterns/bedge-grunge.png");
 }
 
 #resultsHeadingContainer{
@@ -50,7 +52,7 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 1.0em;
 
 
 }
@@ -62,5 +64,9 @@ input {
   align-items: center;
   justify-content: space-between;
   border-style: solid;
-  border-width: 2px;
+  border-width: 0.2em;
+}
+
+.productContainers:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.616);
 }

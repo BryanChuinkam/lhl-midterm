@@ -1,6 +1,13 @@
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Pacifico&display=swap');
+  </style>
+  <link rel="stylesheet" href="/styles/navbar.css">
+</head>
 <nav class="navbar">
   <div class="left">
-    <span class="logo">Sell-ebration</span>
+    <a href="/" ><span class="logo">Sell-ebration</span></a>
   </div>
   <div class="center">
     <form class="search-form" action="/search" method="GET">
@@ -9,10 +16,12 @@
     </form>
   </div>
   <div class="right">
-      <a href="/post" class="nav-button">Post an Item</a>
-      <a href="/users/logout" class="nav-button">Logout</a>
-      <a href="/users/login" class="nav-button">Login</a>
-      <a href="/users/register" class="nav-button">Register</a>
+<!-- Show the login and register links if the user is not logged in -->
+  <a href="/users/login">Login</a>
+  <a href="/users/register">Register</a>
+
+<!-- Show the user-specific links if the user is logged in -->
+
   </div>
 </nav>
-
+</html>

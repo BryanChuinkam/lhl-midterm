@@ -3,10 +3,55 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../db/queries/users');
 
+// A function that generates a unique ID
+function generateUniqueId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
+// Handle GET request for the registration page
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
+// Handle GET request for the login page
+router.get('/login', (req, res) => {
+  const userId = req.session.user ? req.session.user.id : null;
+  res.render('login', { userId });
+});
 
 
-router.get('/', (req, res) => {
-  res.render('users');
+
+// Handle login form submission
+router.post('/login', (req, res) => {
+
+  console.log("email: ", req.body.email);
+
+  db.getUserByEmail(req.body.email)
+  .then((user) => {
+    console.log('user: ', user);
+    req.session.user = {
+      id: user.id
+    };
+    res.redirect(`/users/${user.user_name}`);
+
+  }).catch(err => {
+    res
+      .status(500)
+      .json({ error: err.message });
+  });
+
+});
+
+
+
+// Handle logout form submission
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.redirect('/');
+  });
 });
 
 router.get('/landing', (req, res) => {
@@ -23,53 +68,6 @@ router.get('/landing', (req, res) => {
 router.get('/:user_name', (req, res) => {
   const templateVars = { userName: req.params.user_name.replace(':', '') };
   res.render('users_landing_page', templateVars);
-});
-// Handle GET request for the registration page
-router.get('/register', (req, res) => {
-  res.render('register');
-});
-
-// Handle GET request for the users page
-router.get('/', (req, res) => {
-  res.render('users');
-});
-
-// Handle GET request for the login page
-router.get('/login', (req, res) => {
-  res.render('login');
-});
-
-// Handle login form submission
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
-
-  db.getUserByEmailOrPhoneNumber(email, email)
-    .then((user) => {
-      if (!user) {
-        return res.redirect('/');
-      }
-      bcrypt.compare(password, user.password)
-        .then((passwordMatch) => {
-          if (!passwordMatch) {
-            return res.redirect('/users/login');
-          }
-          req.session.user = user;
-          res.redirect('/');
-        })
-        .catch((err) => {
-          res.redirect('/users/login');
-        });
-    })
-    .catch((err) => {
-      console.log('Error retrieving user:', err);
-      res.redirect('/users/login');
-    });
-});
-
-// Handle logout form submission
-router.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
 });
 
 // Handle POST request for the registration form submission
