@@ -1,7 +1,7 @@
 body {
-  padding-top: 10.5em;
-  background-color: #f3efe9;
-  background-image: url("https://www.transparenttextures.com/patterns/bedge-grunge.png");
+  margin: 1.5em;
+  padding: 0;
+  margin-top: 10.5em;
 }
 
 .container {
@@ -24,10 +24,27 @@ body {
   height: 15.0em;
   object-fit: cover;
   border: 0.2em solid #1d1c1c55;
+  display: block;
+  object-fit: cover;
+  // width: 100%;
+  height: auto;
 }
 
-div.product {
-  background-color: white;
+.image_wrapper {
+  position: relative;
+}
+
+
+.overlay {
+  position: absolute;
+}
+
+.overlay_0 {
+  left: 0;
+  top: 0;
+  padding: .5rem;
+  margin: 4px;
+  background: #f4208f;
 }
 
 #items {
@@ -45,3 +62,12 @@ p {
 h3 {
   color: #000000;
 }
+.product-footer {
+  font-size: small;
+  font-weight: bold;
+}
+.fa-regular:hover{
+  background-color: rgb(96, 107, 150);
+  color: rgb(96, 107, 150);
+ }
+
