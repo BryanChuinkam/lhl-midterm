@@ -1,16 +1,17 @@
 const db = require('../connection');
 
-const getMessages = (threadId) => {
+const getMessages = (adminId) => {
   console.log("query the database");
   const queryString0 = 'SELECT * FROM messages WHERE thread_id = $1 order by created_at desc;';
-  const queryString = `SELECT messages.message, messages.created_at,users.user_name,messages.thread_id
+  const queryString = `SELECT messages.message, messages.created_at,users.user_name,messages.thread_id,products.name
                         FROM messages 
                         JOIN threads ON messages.thread_id = threads.id
                         JOIN users ON threads.buyer_id = users.id
+                        Join products on threads.product_id=products.id
                         WHERE threads.seller_id = $1
-                        group by messages.message, messages.created_at, users.user_name, messages.thread_id
+                        group by messages.message, messages.created_at, users.user_name, messages.thread_id, products.name
                         order by messages.created_at desc; `;
-  const values = [threadId];
+  const values = [adminId];
   return db.query(queryString, values)
     .then((data) => {
       // console.log(data);

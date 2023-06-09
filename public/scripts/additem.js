@@ -14,7 +14,7 @@ function deleteProduct(button) {
   // return d;
 }
 
-//update an item thet is sold out 
+//update an item the is sold out 
 
 function updateIsSold(button) {
   let d = $(button).data('product-id');
@@ -33,17 +33,6 @@ function sendUserMessage(button) {
   $('#productIdInput').val(productId);
   
 }
-// function sendUserMessage(button) {
-//   let productId = $(button).data('product-id');
-
-//   $('#card-body').on('click', function () {
-//     $('#send-message-form').submit();
-//     alert(productId);
-    
-//   });
-// }
-
-
 
 function populateItems(item) {
   let $item = $(`
@@ -64,10 +53,6 @@ function populateItems(item) {
             <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" class="btn btn-primary">Delete</button>
             <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" class="btn btn-primary">SOLD</button>
             <button name="sendMessage" type="button" data-product-id="${item.id}" data-bs-toggle="modal" data-bs-target="#sendMessageForm"  onclick="sendUserMessage(this)" class="btn btn-primary" >Send message</button>
-            
-            
-
-            
           </div>
         </div>
       </div>
@@ -76,26 +61,6 @@ function populateItems(item) {
 `);
   return $item
 }
-
-
-// function populateItems(item) {
-//   let $item = $(`<div class="product">
-//   <img id="itemImage" src="${item.thumbnail_photo_url}" alt="no image">
-//   <h4>Product Name: ${item.name}</h4>
-//   <p>Price: ${item.price}</p>
-//   <p>Stock: ${item.stock}</p>
-//   <p>Description: ${item.description}</p>
-//   <p>featured: ${item.promotion}</p>
-//   <p>SOLD!: ${item.sold}</p>
-//   <button name="deleteProduct" type="button" data-product-id="${item.id}" onclick="deleteProduct(this)" text="delete">Delete</button>
-//   <button name="isSold" type="button" data-product-id="${item.id}" onclick="updateIsSold(this)" text="isSold">SOLD</button>
-
-//   <i id="toggle-icon-on" class="fas fa-toggle-on" font-size: 24px style="color: red;font-size: 30px;"></i>
-//   <i id="toggle-icon-off" class="fas fa-toggle-off" style="font-size: 30px; "></i>
-
-// `);
-//   return $item
-// }
 function grabItems() {
   return $.ajax({
     method: 'GET',
@@ -135,7 +100,7 @@ $(() => {
   $('#send-message-form').on('submit', function (event) {
     event.preventDefault();
     const data = $(this).serialize();
-    alert("ajax request"+ data);
+    // alert("ajax request"+ data);
 
     $.ajax({
       method: 'POST',
@@ -143,7 +108,7 @@ $(() => {
       data: data
     })
     .then(function () {
-      alert("done!");
+      alert("Sent!");
       grabItems();
     });
   });

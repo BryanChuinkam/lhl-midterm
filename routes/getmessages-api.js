@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   // console.log("this is the thread",adminId);
   messages.getMessages(adminId)
     .then((output )=> {
-      console.log("this is the output",output);
+      // console.log("this is the output",output);
       res.json(output);
       console.log("done");
     })
