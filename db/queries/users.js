@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const db = require('../connection');
 
+
+
 // A function that takes the entered user data and adds it to the DB
 const createUser = (user_name, email, password, city, province, phone_number) => {
   const contact_preference = '';
@@ -89,6 +91,10 @@ const addToFav = (buyer_id, product_id) => {
 
 };
 
+function generateUniqueId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 
 module.exports = {
   createUser,
@@ -96,6 +102,7 @@ module.exports = {
   getBuyerFavourites,
   getBuyerId,
   getProductId,
-  addToFav
+  addToFav,
+  generateUniqueId
 };
 

@@ -86,8 +86,8 @@ app.use('/public/scripts', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  const isLoggedIn = req.session.user ? true : false;
-  res.render('index', { isLoggedIn });
+  const userId = req.session.user ? req.session.user.id : null;
+  res.render('index', { userId });
 });
 
 app.listen(PORT, () => {
